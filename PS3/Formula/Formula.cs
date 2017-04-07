@@ -238,6 +238,9 @@ namespace SpreadsheetUtilities
         /// <returns>Evaluated double of this formula, if a valid one exists. Otherwise, returns FormulaError object.</returns>
         public object Evaluate(Func<string, double> lookup)
         {
+            dividedByZero = false;
+            valuelessVariable = false;
+
             Stack<double> values = new Stack<double>();
             Stack<string> operators = new Stack<string>();
 

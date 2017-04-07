@@ -42,6 +42,7 @@
       <HintPath>..\Project1\Libraries\SpreadsheetUtilities.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -51,19 +52,45 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SSTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XMLTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Spreadsheet\Spreadsheet.csproj">
       <Project>{c8230b86-f3be-43f0-9c2b-04aad7109f9e}</Project>
       <Name>Spreadsheet</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="XML Files\incorrectNestedCellElement.xml" />
+    <Content Include="XML Files\invalidElementSpreadsheet.xml" />
+    <Content Include="XML Files\noTextBetweenContentsTags.xml" />
+    <Content Include="XML Files\noTextBetweenNameTags.xml" />
+    <Content Include="XML Files\noVersion.xml" />
+    <Content Include="XML Files\randomTextInCellDeclaration.xml" />
+    <Content Include="XML Files\repeatedCellContents.xml" />
+    <Content Include="XML Files\repeatedCellName.xml" />
+    <Content Include="XML Files\spreadsheetNotRootNode.xml" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

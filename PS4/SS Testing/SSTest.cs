@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* Author: Derek Burns, u0907203
+ * 
+ * Tests regarding the Spreadsheet class
+ */
+
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SS;
 using SpreadsheetUtilities;
@@ -10,47 +15,35 @@ namespace SS_Testing
     public class SSTest
     {
         /// <summary>
-        /// Ensures no exception is thrown when passing a valid string (starting with an underscore)
-        /// </summary>
-        [TestMethod]
-        public void public_validName1()
-        {
-            Spreadsheet ss = new Spreadsheet();
-
-            //Test should pass if method doesn't throw exception
-            ss.SetCellContents("_abc123", 5);
-        }
-
-        /// <summary>
         /// Ensures that no exception is thrown when passing a valid string (Starting with a letter)
         /// </summary>
         [TestMethod]
-        public void public_validName2()
+        public void public_validName()
         {
             Spreadsheet ss = new Spreadsheet();
 
             //Test should pass if method doesn't throw exception
-            ss.SetCellContents("abc123", 5);
+            ss.SetContentsOfCell("abc123", "5");
         }
 
         /// <summary>
         /// Ensures passing a null string into SetCellContents throws the proper exception.
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(InvalidNameException))]
         public void public_nullName()
         {
             Spreadsheet ss = new Spreadsheet();
 
             //Null name should be an invalid name
-            ss.SetCellContents(null, 5);
+            ss.SetContentsOfCell(null, "5");
         }
 
         /// <summary>
         /// Ensures passing a null string into GetCellContents throws the proper exception.
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(InvalidNameException))]
         public void public_nullName2()
         {
             Spreadsheet ss = new Spreadsheet();
@@ -69,7 +62,7 @@ namespace SS_Testing
             Spreadsheet ss = new Spreadsheet();
 
             //Name not starting with _ or letter should be an invalid name
-            ss.SetCellContents("1AB", 5);
+            ss.SetContentsOfCell("1AB", "5");
         }
 
         /// <summary>
@@ -86,19 +79,31 @@ namespace SS_Testing
         }
 
         /// <summary>
+        /// Ensures exception is thrown when passing a valid string (starting with an underscore)
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(InvalidNameException))]
+        public void public_invalidName3()
+        {
+            Spreadsheet ss = new Spreadsheet();
+
+            //Test should pass if method doesn't throw exception
+            ss.SetContentsOfCell("_abc123", "5");
+        }
+
+
+        /// <summary>
         /// Ensure that a circular exception is properly thrown.
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(CircularException))]
         public void public_CircularException1()
         {
-            Formula b1 = new Formula("A1 + 5");
-            Formula a1 = new Formula("B1 + 5");
 
             Spreadsheet ss = new Spreadsheet();
 
-            ss.SetCellContents("A1", a1);
-            ss.SetCellContents("B1", b1);
+            ss.SetContentsOfCell("A1", "=A1 + 5");
+            ss.SetContentsOfCell("B1", "=B1 + 5");
 
         }
 
@@ -113,7 +118,7 @@ namespace SS_Testing
 
             Spreadsheet ss = new Spreadsheet();
 
-            ss.SetCellContents("A1", a1);
+            ss.SetContentsOfCell("A1", "=A1");
 
         }
 
@@ -128,15 +133,14 @@ namespace SS_Testing
             Formula one = new Formula("B1 + 5");
 
             //Formula that causes exception
-            Formula two = new Formula("A1");
 
             Spreadsheet ss = new Spreadsheet();
 
-            ss.SetCellContents("A1", one);
+            ss.SetContentsOfCell("A1", "=B1 + 5");
 
             try
             {
-                ss.SetCellContents("A1", two);
+                ss.SetContentsOfCell("A1", "=A1");
             }
             catch(CircularException e)
             {
@@ -159,11 +163,11 @@ namespace SS_Testing
 
             String s = "Hello";
 
-            ss.SetCellContents("a1", s);
+            ss.SetContentsOfCell("a1", s);
 
             Assert.AreEqual(ss.GetCellContents("a1"), s);
 
-            ss.SetCellContents("a1", "");
+            ss.SetContentsOfCell("a1", "");
 
             Assert.AreEqual(ss.GetCellContents("a1"), "");
         }
@@ -180,7 +184,7 @@ namespace SS_Testing
 
             foreach(var s in variableSet)
             {
-                ss.SetCellContents(s, "Test String");
+                ss.SetContentsOfCell(s, "Test String");
             }
 
             foreach (var s in ss.GetNamesOfAllNonemptyCells())
@@ -203,10 +207,10 @@ namespace SS_Testing
 
             foreach (var s in variableSet)
             {
-                ss.SetCellContents(s, "Test String");
+                ss.SetContentsOfCell(s, "Test String");
             }
 
-            ss.SetCellContents("c1", "");
+            ss.SetContentsOfCell("c1", "");
 
             variableSet.Remove("c1");
 
@@ -214,6 +218,58 @@ namespace SS_Testing
             {
                 Assert.IsTrue(variableSet.Contains(s));
             }
+
+        }
+    }
+
+    [TestClass]
+    public class PS5Test
+    {
+        [TestMethod]
+        [ExpectedException(typeof(InvalidNameException))]
+        public void public_nullGetValue()
+        {
+            Spreadsheet ss = new Spreadsheet();
+
+            ss.GetCellValue(null);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidNameException))]
+        public void public_invalidGetValue()
+        {
+            Spreadsheet ss = new Spreadsheet();
+            
+            //Invalid name format, should throw exception
+            ss.GetCellValue("_ab");
+        }
+
+        [TestMethod]
+        public void public_FormulaError()
+        {
+            Spreadsheet ss = new Spreadsheet();
+
+            ss.SetContentsOfCell("a1", "hello");
+            ss.SetContentsOfCell("b1", "=a1 + 2");
+
+            Assert.IsInstanceOfType(ss.GetCellValue("b1"), typeof(FormulaError));
+        }
+
+
+        [TestMethod]
+        public void testGetChanged()
+        {
+            Spreadsheet sheet = new Spreadsheet();
+
+            Assert.IsFalse(sheet.Changed);
+
+            sheet.SetContentsOfCell("a1", "b1");
+
+            Assert.IsTrue(sheet.Changed);
+
+            sheet.Save("testVersion.xml");
+
+            Assert.IsFalse(sheet.Changed);
 
         }
     }
