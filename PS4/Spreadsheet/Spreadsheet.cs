@@ -117,7 +117,7 @@ namespace SS
                                     throw new Exception("File version does not match the version of current spreadsheet.");
                                 }
                             }
-                            catch(Exception e)
+                            catch(Exception)
                             {
                                 throw new Exception("Spreadsheet version not specified.");
                             }
@@ -133,6 +133,10 @@ namespace SS
                             throw new Exception("Invalid XML format. Root node can only be a spreadsheet.");
                         }
                     }
+
+                    //A newly opened file hasn't technically been changed, (or "unsaved")
+                    //TODO: Keep this part?
+                    this.Changed = false;
                 }
             }
             catch(Exception e)
@@ -293,6 +297,21 @@ namespace SS
                 return "";
             }
 
+        }
+
+        public string GetCellContentsAsString(string name)
+        {
+            object contents = GetCellContents(name);
+            string contentString;
+            if (contents.GetType() == typeof(Formula))
+            {
+                contentString = "=" + contents.ToString();
+            }
+            else
+            {
+                contentString = contents.ToString();
+            }
+            return contentString;
         }
 
         /// <summary>
@@ -542,7 +561,7 @@ namespace SS
 
             //If the cellset didn't contain the desired cell, it doesn't have a value, so throw an exception for the formula evaluator
             if(!cellSet.TryGetValue(name, out lookupCell)) {
-                throw new Exception();
+                throw new ArgumentException();
             }
 
             //Check if the value of the cell isn't a double
@@ -550,7 +569,7 @@ namespace SS
 
             if (isntDouble)
             {
-                throw new Exception();
+                throw new ArgumentException();
             }
             else
             {
@@ -749,6 +768,25 @@ namespace SS
 
             //If cell didn't exist in cellset, return an empty string
             return "";
+        }
+
+        public string getCellValueAsString(string name)
+        {
+            object cellValueObj = GetCellValue(name);
+            if (cellValueObj.GetType() == typeof(string))
+            {
+                return (string)cellValueObj;
+            }
+            else if (cellValueObj.GetType() == typeof(double))
+            {
+                return cellValueObj.ToString();
+            }
+            else if (cellValueObj.GetType() == typeof(FormulaError))
+            {
+                return "FORMULA ERROR";
+            }
+            return "ERROR";
+
         }
 
         /// <summary>

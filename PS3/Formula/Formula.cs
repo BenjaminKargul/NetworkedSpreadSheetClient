@@ -129,11 +129,11 @@ namespace SpreadsheetUtilities
                     }
                     else if(parenthesisOperatorRule)
                     {
-                        throw new FormulaFormatException("Token immediately following an opening parenthesis/operator should be a number, variable, or opening parenthesis.");
+                        throw new FormulaFormatException("Token immediately following an opening parenthesis/operator should be a number, valid variable, or opening parenthesis.");
                     }
                     else
                     {
-                        throw new FormulaFormatException("First token must be a number, variable, or opening parenthesis.");
+                        throw new FormulaFormatException("First token of formula must be a number, valid variable, or opening parenthesis.");
                     }
                 }
                 //If previous token was a number/variable/closing parenthesis
@@ -207,7 +207,7 @@ namespace SpreadsheetUtilities
             }
             else
             {
-                throw new FormulaFormatException("Last token should be a variable/value/closing parenthesis.");
+                throw new FormulaFormatException("Last token should be a valid variable/value/closing parenthesis.");
             }
         }
 

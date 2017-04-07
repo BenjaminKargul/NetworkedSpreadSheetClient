@@ -1,47 +1,33 @@
-﻿Spreadsheet, PS5 README.txt
+﻿Spreadsheet, PS6 README.txt
 
-Author: Derek Burns
-Readme last edited: 10/6/2016, 10:30 PM
+Author: Derek Burns, Madeline MacDonald
+Readme last edited: 11/3/2016, 4:13 PM
 
 
 Project Dependencies
 ---------------------
 
 -This project utilizes the DLLs built from the PS2 and PS3 assignments that were turned in.
-		* (Formula.dll and SpreadsheetUtilities.dll, build Sep 27, 2016 11:52 PM)
+	Builds were made from the PS6 Branch.
+		* (SpreadsheetUtilities.dll, build Sep 27, 2016 11:52 PM)
+		* (Formula.dll, build November 1, 2016, 9:20PM)
 
-
-
-Initial Thoughts
----------------------
-
--First looking through the project, I saw that a method for detecting circular dependencies was already
-implemented for us. I also saw that the same provided methods returned a list of variables that needs to be 
-recalculated, and noted that I could use these to simultaneously get the Set of dependents while checking for
-circular dependencies, without the need for a lot of ugly looking code.
-
-Notes for TA
----------------------
-
--For some reason, the Code Coverage also tests for the testing class itself, which brings down the average percentage.
-		* My Spreadsheet project itself has 98.36% coverage. (9/29/2016)
-
--I can't, for the life of me, figure out how to include files into the bin folder on the repository, so I have no idea
-how to test manually created files that are meant to be invalid and throw SpreadsheetReadWriteExceptions. (10/6/2016)
-
--Fixed the previous problem by just having the files stored in a resource folder, and having the spreadsheet constructor
-go up two directories to the project folder, and then into the directory of the XML files (10/6/2016)
 
 Project Notes
 ---------------------
+- Branched from PS5, [Commit 6f2b3ea9, Oct 26, 2016]
 
--All of the SetCellContents methods were abstracted to the same method, since they all share similar code. In the case that a
-Formula is passed as the contents of a cell, It will swap out the cell contents with the new Formula, keeping the old contents and
-dependees incase a CircularDependency is found. In that case, the old contents/dependees are restored. (9/29/2016)
+-The underlying class (model) behind our spreadsheet program is the Spreadsheet class, directly stored within the Form class.
+-In order to handle data loss, we simply registered a delegate to the Form's "FormClosing" event, and if the user selects no, the
+	delegate cancels the close operation. This case was also handled separately if the user tried opening a file while there are
+	unsaved changes.
+-In order to highlight cells, the SpreadsheetPanel class had to be modified, which is why it is included as its own project within 
+	the solution. This modification can be found in DrawingPanel's "onPaint" method, around line 430.
+-The Title of a spreadsheet has an asterisk next to the file name if it is an unsaved file.
+-The title of the windows form is shown as the name of the saved spreadsheet file, or as "New Spreadsheet.sprd".
+-Graphing is enabled in this project under the extra tab on the menu. All graphing is done as a line graph, with invalid points
+	being ommited from the data points on the graph. The completed graph is automatically downloaded into the debug folder
+	within the project. Data is graphed by entering a column to put X values from and a column to pull Y values from, and
+	a range of row values. The values in the X column are matched with the values in the Y column for each row within the range
+	and those points are plotted as a line graph.
 
--When loading in a spreadsheet file, I opted to use an XmlDocument instead of an XmlReader simply because it has the ability
-to go through elements, rather than manually reading each line of the document. Makes reading the hierarchy of the elements
-much easier, and I didn't have to deal with a bunch of confusing booleans to keep track of whether  i'm in a nested element, etc.... (10/6/2016)
-
-
-- Branched from PS4, [Commit f87dec6, Sep 29, 2016] (10/4/2016, 1:45 PM)
