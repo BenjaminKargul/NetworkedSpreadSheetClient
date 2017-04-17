@@ -1,0 +1,8 @@
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.XML
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.dll
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.pdb
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.csprojResolveAssemblyReference.cache
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SS.Properties.Resources.resources
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.csproj.GenerateResource.Cache
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.dll
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.pdb
