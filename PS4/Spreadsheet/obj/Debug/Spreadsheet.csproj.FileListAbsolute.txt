@@ -1,0 +1,9 @@
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Spreadsheet.dll
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Spreadsheet.pdb
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Formula.dll
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Formula.xml
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.dll
+D:\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.pdb
