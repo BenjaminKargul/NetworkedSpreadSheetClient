@@ -70,6 +70,7 @@
     <Compile Include="GraphForm.Designer.cs">
       <DependentUpon>GraphForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NetworkController.cs" />
     <Compile Include="SpreadSheetProgram.cs">
       <SubType>Form</SubType>
     </Compile>
