@@ -19,3 +19,4 @@ C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SS.
 C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache
 C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SpreadsheetProgram.exe
 C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SpreadsheetProgram.pdb
+C:\Users\madelinm\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SS.LoginWindow.resources

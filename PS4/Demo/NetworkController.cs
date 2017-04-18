@@ -62,10 +62,7 @@ namespace SS
 
         public class Networking
         {
-            public const int DEFAULT_PORT = 11000;
-
-
-
+            public const int DEFAULT_PORT = 2112;
 
             public static SocketState ConnectToServer(ConnectionHandler handler, string hostName)
             {
@@ -194,7 +191,7 @@ namespace SS
                 ss.EndSend(ar);
             }
 
-
+            /*
             public static void ServerAwaitingClientLoop(ConnectionHandler callMe)
             {
                 TcpListener listener = new TcpListener(IPAddress.Any, Networking.DEFAULT_PORT);
@@ -232,7 +229,7 @@ namespace SS
                 // Start listening for the next client, on a new thread
                 listener.BeginAcceptSocket(AcceptNewClient, state);
             }
-
+            */
         }
 
     }
