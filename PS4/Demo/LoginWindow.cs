@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SS.NetworkController;
 
 namespace SS
 {
@@ -24,15 +25,16 @@ namespace SS
             user = textBoxUserName.Text;
             String hostname = textBoxHostName.Text;
 
-            NetworkController.Networking.ConnectToServer(ConnectionEstablished, hostname);
+            Controller server = new Controller(user, hostname);
+            //SocketState state = NetworkController.Networking.ConnectToServer(ConnectionEstablished, hostname);
 
             //if program closes after spreadsheet window closes, make sure that works when we have multiple SS open
         }
 
-        private void ConnectionEstablished(NetworkController.SocketState ss)
-        {
-            //Send the player name here
-            NetworkController.Networking.Send(ss.theSocket, user + "\n");
-        }
+        //private void ConnectionEstablished(NetworkController.SocketState ss)
+        //{
+        //    //Send the player name here
+        //    Networking.Send(ss.theSocket, user + "\n");
+        //}
     }
 }
