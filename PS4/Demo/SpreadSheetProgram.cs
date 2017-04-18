@@ -95,6 +95,8 @@ namespace SS
         /// <returns>Returns true if cell is a valid name.</returns>
         private bool isValidCellName(string s)
         {
+            //////////////////////////////////////////////////////////////
+            //possibly unnecessary for client version if its used to read from a file, if used to verify input then probably should stay
             int row;
             int col;
 
@@ -112,6 +114,8 @@ namespace SS
         /// </summary>
         private void updateFormTitle()
         {
+            /////////////////////////////////////
+            //likely going to be removed or changed to reflect server saving 
             if(!initiallySaved || spreadsheetData.Changed)
             {
                 this.Text = fileName + "*";
@@ -128,6 +132,8 @@ namespace SS
         /// <param name="ss"></param>
         private void displaySelection(SpreadsheetPanel ss)
         {
+            ///////////////////////////////////////////////////////////////////////////
+            //confused as to what this is actually doing, does it change the selection boxes at the top? if it does it probably doesnt need to be changed
             int row, col;
 
             ss.GetSelection(out col, out row);
@@ -146,6 +152,8 @@ namespace SS
         /// <param name="e"></param>
         private void menuNew_Click(object sender, EventArgs e)
         {
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //tbd
             // Tell the application context to run the form on the same
             // thread as the other forms.
             DemoApplicationContext.getAppContext().RunForm(new Form1());
@@ -158,6 +166,8 @@ namespace SS
         /// <param name="e"></param>
         private void menuClose_Click(object sender, EventArgs e)
         {
+            //////////////////////////////////////////////////////////////////////////////////////
+            //tbd
             Close();
         }
 
@@ -168,6 +178,8 @@ namespace SS
         /// <param name="e"></param>
         private void menuSaveAs_Click(object sender, EventArgs e)
         {
+            ////////////////////////////////////////////////////////////////////////////////////
+            //to be modified to work with server saving
             SaveAsDialog.FileName = fileName;
             SaveAsDialog.ShowDialog();
         }
@@ -179,6 +191,8 @@ namespace SS
         /// <param name="e"></param>
         private void menuSave_Click(object sender, EventArgs e)
         {
+            /////////////////////////////////////////////
+            //unneeded?
             if (initiallySaved)
             {
                 //If the file had already had "save as" called, just save the file.
@@ -203,6 +217,8 @@ namespace SS
         /// <param name="e"></param>
         private void SaveAsDialog_FileOk(object sender, CancelEventArgs e)
         {
+            /////////////////////////////////////////////////////////////////////////////////////////////
+            //unneeded?
             //Get the file path, and the name, of the file.
             filePath = SaveAsDialog.FileName;
             //Filepath actually contains the file name as well, just extract it.
@@ -237,6 +253,8 @@ namespace SS
         /// <param name="e"></param>
         private void menuOpen_Click(object sender, EventArgs e)
         {
+            ////////////////////////////////////////////////////
+            //to be replaced with code that recieves information from the server
             OpenFile.ShowDialog();
         }
 
@@ -247,6 +265,8 @@ namespace SS
         /// <param name="e"></param>
         private void buttonSetContents_Click(object sender, EventArgs e)
         {
+            ////////////////////////////////////////////////////////////////////////////////
+            //replace with code to send change request to server
             try
             {
                 int row, col;
@@ -288,6 +308,8 @@ namespace SS
         /// <param name="cellsToUpdate">The cells to redraw</param>
         private void updateCellValues(IEnumerable<string> cellsToUpdate)
         {
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+            //needs to change to recieve info from the server to decided what needs to be updated
             int row, col;
             String value;
 
@@ -309,6 +331,8 @@ namespace SS
         /// <param name="e"></param>
         private void OpenFile_FileOk(object sender, CancelEventArgs e)
         {
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //to be changed to work with server open
             if (spreadsheetData.Changed)
             {
                 var closeMessage = MessageBox.Show("You have unsaved changes, do you still want to open a new file?",
@@ -363,6 +387,8 @@ namespace SS
         /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
+            ////////////////////////////////////////////////////////////////////////////
+            //might need something to tell the server connection is closing or might not, will have to see
             //If there is unsaved data, open prompt
             if (spreadsheetData.Changed)
             {
@@ -401,6 +427,8 @@ namespace SS
         /// <param name="e"></param>
         private void clearSpreadSheetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //either will need to change to send the server all the changes or be removed entirely
             var clearMessage = MessageBox.Show("Are you sure you want to clear the spreadsheet?",
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
