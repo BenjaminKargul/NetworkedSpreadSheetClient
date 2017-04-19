@@ -853,7 +853,7 @@ namespace SS
             public object contents;
             public object value;
 
-            //Constructs a cell with a name and contents
+            //Constructs a cell with a name and content
             public Cell(string name, object contents)
             {
                 this.name = name;
