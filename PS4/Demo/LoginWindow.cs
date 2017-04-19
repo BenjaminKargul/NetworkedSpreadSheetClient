@@ -13,18 +13,22 @@ namespace SS
 {
     public partial class LoginWindow : Form
     {
-
-        String user;
         public LoginWindow()
         {
             InitializeComponent();
+            buttonOpen.Hide();
+            buttonNew.Hide();
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            user = textBoxUserName.Text;
+            String user = textBoxUserName.Text;
             String hostname = textBoxHostName.Text;
 
+            if (user == "" || hostname == "")
+            {
+                MessageBox.Show(this, "Not all fields are properly filled out", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             Controller server = new Controller(user, hostname);
             //SocketState state = NetworkController.Networking.ConnectToServer(ConnectionEstablished, hostname);
 
