@@ -42,3 +42,6 @@ C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SS.Fin
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SS.HelpWindow.resources
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SS.Properties.Resources.resources
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SpreadsheetGUI.csproj.GenerateResource.Cache
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\bin\Debug\SpreadsheetProgram.exe.config
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SpreadsheetProgram.exe
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Demo\obj\x86\Debug\SpreadsheetProgram.pdb
