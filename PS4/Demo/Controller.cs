@@ -49,7 +49,7 @@ namespace SS
         }
 
         private SocketState state;
-        public object worldLock = new object();
+        public object ssLock = new object();
 
         /// <summary>
         /// create a new instance of game control
@@ -97,50 +97,13 @@ namespace SS
         /// <param name="ss">active socket state</param>
         private void Initialization(SocketState ss)
         {
-            string totalData = ss.sb.ToString();
-            string[] parts = Regex.Split(totalData, @"(?<=[\n])");
-
-            // Loop until we have processed the initial messages the server sends.
-            foreach (string p in parts)
-            {
-                // Ignore empty strings added by the regex splitter
-                if (p.Length == 0)
-                    continue;
-                // The regex splitter will include the last string even if it doesn't end with a '\n',
-                // So we need to ignore it if this happens. 
-                if (p[p.Length - 1] != '\n')
-                    return;
-
-                if (initializedCount == 0)
-                {
-                    Int32.TryParse(p, out clientID);
-                }
-                //////////////////////////////////////////
-                //These will get changed?
-                //else if (initializedCount == 1)
-                //{
-                //    Int32.TryParse(p, out width);
-                //}
-                //else if (initializedCount == 2)
-                //{
-                //    Int32.TryParse(p, out height);
-                //}
-                initializedCount++;
-
-                // Then remove it from the SocketState's growable buffer
-                ss.sb.Remove(0, p.Length);
-            }
-
-            // Make sure this isn't called until all needed initialization data is collected, so we can allow the event loop to recieve more data
-            if (initializedCount >= 3)
-            {
-                ss.handleConnection = ReceiveSSData;
-                //world = new WorldModel(width, height, playerID);
-                ssReady = true;
-            }
-
-
-
+            string IDMessage = ss.sb.ToString();
+            IDMessage.Trim();
+            Int32.TryParse(IDMessage, out clientID);
+            ss.sb.Remove(0, IDMessage.Length);
+            ss.handleConnection = ReceiveSSData;
+            //world = new WorldModel(width, height, playerID);
+            ssReady = true;
         }
 
         /// <summary>
@@ -150,12 +113,9 @@ namespace SS
         private void ReceiveSSData(SocketState ss)
         {
             string totalData = ss.sb.ToString();
-            string[] parts = Regex.Split(totalData, @"(?<=[\n])");
+            string[] parts = Regex.Split(totalData, @"\t");
 
-            // Loop until we have processed all messages.
-            // We may have received more than one.
-
-            lock (worldLock)
+            lock (ssLock)
             {
                 foreach (string p in parts)
                 {

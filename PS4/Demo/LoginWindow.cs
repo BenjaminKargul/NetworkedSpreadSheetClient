@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -27,18 +28,35 @@ namespace SS
 
             if (user == "" || hostname == "")
             {
+                
                 MessageBox.Show(this, "Not all fields are properly filled out", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            Controller server = new Controller(user, hostname);
-            //SocketState state = NetworkController.Networking.ConnectToServer(ConnectionEstablished, hostname);
+            else
+            {
+                Stopwatch t = new Stopwatch();
+                t.Start();
+                textBoxUserName.Enabled = false;
+                textBoxHostName.Enabled = false;
+                buttonConnect.Text = "Connecting...";
+                buttonConnect.Enabled = false;
+                Controller server = new Controller(user, hostname);
+                while (!server.ssReady)
+                {
+                    if (t.Elapsed.Seconds > 5)
+                    {
+                        MessageBox.Show(this, "Unable to connect to server, please check for valid server and try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Enabled = true;
+                        textBoxUserName.Enabled = true;
+                        textBoxHostName.Enabled = true;
+                        return;
+                    }
+                }
+                buttonConnect.Text = "Connected";
+                buttonNew.Show();
+                buttonOpen.Show();
+            }
 
             //if program closes after spreadsheet window closes, make sure that works when we have multiple SS open
         }
-
-        //private void ConnectionEstablished(NetworkController.SocketState ss)
-        //{
-        //    //Send the player name here
-        //    Networking.Send(ss.theSocket, user + "\n");
-        //}
     }
 }
