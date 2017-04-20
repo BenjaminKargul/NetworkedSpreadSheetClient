@@ -17,16 +17,10 @@ namespace SS
         public SSOpenWindow(Controller server)
         {
             InitializeComponent();
-            this.server = server;
-            //server.SendCommand()
-            files = new List<string>();
-            files.Add("TestFile1.sprd");
-            files.Add("TestFile2.sprd");
-            files.Add("TestFile3.sprd");
-            files.Add("TestFile4.sprd");
-           
 
-            displayFileList(files);
+            this.server = server;
+            server.fileListRecieved += displayFileList;
+            server.handleRecieveFileList("0\tfile1.sprd\tfile2.sprd\tfile3.sprd\tfile4.sprd\tfile5.sprd\n");
         }
 
         public void displayFileList(List<String> files)

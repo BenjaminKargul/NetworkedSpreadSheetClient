@@ -15,8 +15,8 @@ namespace SS
     /// </summary>
     public class Controller
     {
-        public delegate void FrameRecievedHandler();
-        public event FrameRecievedHandler updated;
+        public delegate void FileListRecievedHandler(List<String> files);
+        public event FileListRecievedHandler fileListRecieved;
 
         //could hold the spreadsheet?
         //public WorldModel world
@@ -33,8 +33,6 @@ namespace SS
             protected set;
         }
 
-        //Numbers used to keep track of initialization of the WorldModel.
-        private int initializedCount = 0;
         //private int playerID = -1;
         private int clientID = -1;
         private int docID = -1;
@@ -44,7 +42,6 @@ namespace SS
         public bool ssReady
         {
             get;
-
             protected set;
         }
 
@@ -117,7 +114,7 @@ namespace SS
         private void ReceiveSSData(SocketState ss)
         {
             string totalData = ss.sb.ToString();
-            string[] parts = Regex.Split(totalData, @"\t\n");
+            string[] parts = Regex.Split(totalData, @"\t");
 
             lock (ssLock)
             {
@@ -165,9 +162,15 @@ namespace SS
         //    }
         //}
 
-        public void handleRecieveFileList()
+        public void handleRecieveFileList(string fileListMessage)
         {
-
+            string[] parts = Regex.Split(fileListMessage, @"\t");
+            List<string> files = new List<string>();
+            for (int i = 1; i < parts.Length; i++)
+            {
+                files.Add(parts[i].Trim());
+            }
+            fileListRecieved(files);
         }
     }
 }
