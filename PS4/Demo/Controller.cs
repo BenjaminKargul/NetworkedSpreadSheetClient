@@ -79,7 +79,7 @@ namespace SS
         {
             ///////////////////////////////////////////////////////////////////////////////////////////
             //This is going to get changed a lot, possibly seperated into different functions
-            Networking.Send(state.theSocket, data + "\n");
+            Networking.Send(state.theSocket, data);
         }
 
         /// <summary>
@@ -117,9 +117,7 @@ namespace SS
         private void ReceiveSSData(SocketState ss)
         {
             string totalData = ss.sb.ToString();
-            string[] parts = Regex.Split(totalData, @"\t");
-
-            //
+            string[] parts = Regex.Split(totalData, @"\t\n");
 
             lock (ssLock)
             {
@@ -132,7 +130,10 @@ namespace SS
                     // So we need to ignore it if this happens. 
                     if (p[p.Length - 1] != '\n')
                         break;
-
+                    if (p == "0")
+                    {
+                        
+                    }
                     ////processJSONData(p);
                     // Then remove it from the SocketState's growable buffer
                     ss.sb.Remove(0, p.Length);
@@ -163,5 +164,10 @@ namespace SS
         //        world.AddFood(rebuiltFood);
         //    }
         //}
+
+        public void handleRecieveFileList()
+        {
+
+        }
     }
 }
