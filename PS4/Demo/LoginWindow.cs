@@ -43,7 +43,7 @@ namespace SS
                 server = new Controller(user, hostname);
                 while (!server.ssReady)
                 {
-                    if (t.Elapsed.Seconds > 5)
+                    if (t.Elapsed.Seconds > 30)
                     {
                         MessageBox.Show(this, "Unable to connect to server, please check for valid server and try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         this.Enabled = true;

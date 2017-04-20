@@ -66,6 +66,11 @@ namespace SS
             state = Networking.ConnectToServer(ConnectionEstablished, serverAddress);
         }
 
+        public void requestFileList()
+        {
+            Networking.Send(state.theSocket, "0\n");
+        }
+
         /// <summary>
         /// send a command to the server
         /// </summary>
@@ -85,11 +90,7 @@ namespace SS
         {
             ss.handleConnection = Initialization;
 
-            //Send the player name here
-            Networking.Send(ss.theSocket, userName + "\n");
         }
-
-
 
         /// <summary>
         /// initializese the world object when information first starts coming from the server
@@ -102,7 +103,10 @@ namespace SS
             Int32.TryParse(IDMessage, out clientID);
             ss.sb.Remove(0, IDMessage.Length);
             ss.handleConnection = ReceiveSSData;
-            //world = new WorldModel(width, height, playerID);
+
+            //Send the player name here
+            Networking.Send(ss.theSocket, userName + "\n");
+
             ssReady = true;
         }
 
@@ -114,6 +118,8 @@ namespace SS
         {
             string totalData = ss.sb.ToString();
             string[] parts = Regex.Split(totalData, @"\t");
+
+            //
 
             lock (ssLock)
             {
@@ -132,7 +138,7 @@ namespace SS
                     ss.sb.Remove(0, p.Length);
                 }
             }
-            updated();
+            //updated();
         }
 
         /// <summary>
