@@ -87,6 +87,7 @@
             this.buttonNew.TabIndex = 5;
             this.buttonNew.Text = "Open New Spreadsheet";
             this.buttonNew.UseVisualStyleBackColor = true;
+            this.buttonNew.Click += new System.EventHandler(this.buttonNew_Click);
             // 
             // buttonOpen
             // 
@@ -96,6 +97,7 @@
             this.buttonOpen.TabIndex = 6;
             this.buttonOpen.Text = "Open Existing Spreadsheet";
             this.buttonOpen.UseVisualStyleBackColor = true;
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // LoginWindow
             // 
@@ -114,7 +116,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(250, 240);
             this.Name = "LoginWindow";
-            this.Text = "LoginWindow";
+            this.Text = "Login to Spreadsheet";
             this.ResumeLayout(false);
             this.PerformLayout();
 

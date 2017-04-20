@@ -13,7 +13,7 @@ namespace SS
     /// Including formatting messages to the server
     /// and recieving and parsing data from the server
     /// </summary>
-    class Controller
+    public class Controller
     {
         public delegate void FrameRecievedHandler();
         public event FrameRecievedHandler updated;

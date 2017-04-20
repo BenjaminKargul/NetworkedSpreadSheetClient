@@ -14,6 +14,7 @@ namespace SS
 {
     public partial class LoginWindow : Form
     {
+        Controller server;
         public LoginWindow()
         {
             InitializeComponent();
@@ -39,7 +40,7 @@ namespace SS
                 textBoxHostName.Enabled = false;
                 buttonConnect.Text = "Connecting...";
                 buttonConnect.Enabled = false;
-                Controller server = new Controller(user, hostname);
+                server = new Controller(user, hostname);
                 while (!server.ssReady)
                 {
                     if (t.Elapsed.Seconds > 5)
@@ -55,8 +56,17 @@ namespace SS
                 buttonNew.Show();
                 buttonOpen.Show();
             }
+        }
 
-            //if program closes after spreadsheet window closes, make sure that works when we have multiple SS open
+        private void buttonNew_Click(object sender, EventArgs e)
+        {
+            //open a new form
+        }
+
+        private void buttonOpen_Click(object sender, EventArgs e)
+        {
+            SSOpenWindow openWindow = new SSOpenWindow(server);
+            openWindow.ShowDialog();
         }
     }
 }
