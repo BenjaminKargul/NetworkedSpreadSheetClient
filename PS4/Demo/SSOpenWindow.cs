@@ -30,5 +30,16 @@ namespace SS
                 listBoxSpreadsheets.Items.Add(fileName);
             }
         }
+
+        private void listBoxSpreadsheets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectionBox.Text = listBoxSpreadsheets.GetItemText(listBoxSpreadsheets.SelectedItem);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //tbd
+            server.SendCommand("2\t" + listBoxSpreadsheets.GetItemText(listBoxSpreadsheets.SelectedItem) + "\n");
+        }
     }
 }

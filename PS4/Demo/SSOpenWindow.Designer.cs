@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.listBoxSpreadsheets = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.selectionBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -40,13 +40,14 @@
             this.listBoxSpreadsheets.Name = "listBoxSpreadsheets";
             this.listBoxSpreadsheets.Size = new System.Drawing.Size(259, 186);
             this.listBoxSpreadsheets.TabIndex = 0;
+            this.listBoxSpreadsheets.SelectedIndexChanged += new System.EventHandler(this.listBoxSpreadsheets_SelectedIndexChanged);
             // 
-            // textBox1
+            // selectionBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 214);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(167, 20);
-            this.textBox1.TabIndex = 1;
+            this.selectionBox.Location = new System.Drawing.Point(13, 214);
+            this.selectionBox.Name = "selectionBox";
+            this.selectionBox.Size = new System.Drawing.Size(167, 20);
+            this.selectionBox.TabIndex = 1;
             // 
             // button1
             // 
@@ -56,6 +57,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Open File";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SSOpenWindow
             // 
@@ -63,7 +65,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.selectionBox);
             this.Controls.Add(this.listBoxSpreadsheets);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(300, 300);
@@ -79,7 +81,7 @@
         #endregion
 
         private System.Windows.Forms.ListBox listBoxSpreadsheets;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox selectionBox;
         private System.Windows.Forms.Button button1;
     }
 }
