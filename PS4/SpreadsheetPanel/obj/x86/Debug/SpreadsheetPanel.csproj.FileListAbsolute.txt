@@ -14,3 +14,11 @@ C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.csproj.GenerateResource.Cache
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.dll
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.pdb
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.XML
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.dll
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\bin\Debug\SpreadsheetPanel.pdb
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.csprojResolveAssemblyReference.cache
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SS.Properties.Resources.resources
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.csproj.GenerateResource.Cache
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.dll
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\SpreadsheetPanel\obj\x86\Debug\SpreadsheetPanel.pdb

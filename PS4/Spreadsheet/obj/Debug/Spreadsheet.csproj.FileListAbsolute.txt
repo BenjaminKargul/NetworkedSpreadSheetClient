@@ -16,3 +16,12 @@ C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Spr
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.dll
 C:\Users\nicho\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.pdb
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Spreadsheet.dll
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Spreadsheet.pdb
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Formula.dll
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\SpreadsheetUtilities.dll
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\Formula.xml
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\bin\Debug\SpreadsheetUtilities.xml
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.csprojResolveAssemblyReference.cache
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.dll
+C:\Users\konjevod\Source\Repos\TheMemeTeamSpreadSheet\PS4\Spreadsheet\obj\Debug\Spreadsheet.pdb
