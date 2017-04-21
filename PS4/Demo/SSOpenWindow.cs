@@ -27,7 +27,7 @@ namespace SS
         public void displayFileList(List<String> files)
         {
             this.files = files;
-            listBoxSpreadsheets.Refresh();
+            //listBoxSpreadsheets.Refresh();
         }
 
         private void listBoxSpreadsheets_SelectedIndexChanged(object sender, EventArgs e)

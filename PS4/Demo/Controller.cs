@@ -188,7 +188,10 @@ namespace SS
             {
                 files.Add(parts[i].Trim());
             }
-            fileListRecieved(files);
+            if (fileListRecieved != null)
+            {
+                fileListRecieved(files);
+            }
         }
     }
 }
