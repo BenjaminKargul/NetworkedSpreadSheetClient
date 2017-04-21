@@ -152,13 +152,6 @@
             this.boxCurrentCell.Size = new System.Drawing.Size(100, 20);
             this.boxCurrentCell.TabIndex = 4;
             // 
-            // SaveAsDialog
-            // 
-            this.SaveAsDialog.DefaultExt = "sprd";
-            this.SaveAsDialog.Filter = "Spreadsheet (*.sprd) |*.sprd| All Files (*.*)|*.*";
-            this.SaveAsDialog.Title = "Save Spreadsheet As...";
-            this.SaveAsDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveAsDialog_FileOk);
-            // 
             // buttonSetContents
             // 
             this.buttonSetContents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));

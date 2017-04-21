@@ -17,8 +17,8 @@ namespace SS
         public SSOpenWindow(Controller Server)
         {
             InitializeComponent();
-            server.SendCommand("0\n");
             this.server = Server;
+            server.SendCommand("0\n");
             server.fileListRecieved += displayFileList;
             server.handleRecieveFileList("0\tfile1.sprd\tfile2.sprd\tfile3.sprd\tfile4.sprd\tfile5.sprd\n");
         }
