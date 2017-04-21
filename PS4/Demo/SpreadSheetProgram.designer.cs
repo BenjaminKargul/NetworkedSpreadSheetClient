@@ -138,6 +138,7 @@
             this.boxCellContents.Name = "boxCellContents";
             this.boxCellContents.Size = new System.Drawing.Size(214, 20);
             this.boxCellContents.TabIndex = 2;
+            this.boxCellContents.TextChanged += new System.EventHandler(this.boxCellContents_TextChanged);
             // 
             // boxCellValue
             // 

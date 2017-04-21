@@ -467,5 +467,11 @@ namespace SS
             GraphForm graphWindow = new GraphForm(spreadsheetData);
             graphWindow.Show();
         }
+
+        private void boxCellContents_TextChanged(object sender, EventArgs e)
+        {
+            theServer.SendCommand("8\t" + docID + "\t" + boxCurrentCell + "\n");
+            //////////////////////////////////////////might want to change this
+        }
     }
 }
