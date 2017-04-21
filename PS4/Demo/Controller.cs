@@ -18,7 +18,7 @@ namespace SS
         public delegate void FileListRecievedHandler(List<String> files);
         public event FileListRecievedHandler fileListRecieved;
 
-        //could hold the spreadsheet?
+
         //public WorldModel world
         //{
         //    get;
@@ -37,6 +37,7 @@ namespace SS
         private int clientID = -1;
         private int docID = -1;
         private string filename = "";
+        //private string
         //private int width = -1;
         //private int height = -1;
         public bool ssReady
@@ -114,7 +115,7 @@ namespace SS
         private void ReceiveSSData(SocketState ss)
         {
             string totalData = ss.sb.ToString();
-            string[] parts = Regex.Split(totalData, @"\t");
+            string[] parts = Regex.Split(totalData, @"\n");
 
             lock (ssLock)
             {
@@ -127,10 +128,20 @@ namespace SS
                     // So we need to ignore it if this happens. 
                     if (p[p.Length - 1] != '\n')
                         break;
-                    if (p == "0")
+                    //this is where we need to break the message into parts
+                    //check the first element to see what type it is
+                    //and call the proper method
+
+                    string[] messageElements = Regex.Split(p, @"\t");
+                    if (messageElements[0] == "0")
                     {
-                        
+                        handleRecieveFileList(p);
                     }
+                    else if (messageElements[0] == "1" || messageElements[0] == "2")
+                    {
+                        handleOpenSpreadsheet(messageElements[2]);
+                    }
+
                     ////processJSONData(p);
                     // Then remove it from the SocketState's growable buffer
                     ss.sb.Remove(0, p.Length);
@@ -138,29 +149,6 @@ namespace SS
             }
             //updated();
         }
-
-        /// <summary>
-        /// process the JSON data coming in from the server and add to the model
-        /// </summary>
-        /// <param name="JSONObject">string representing a json object</param>
-        //private void processJSONData(String JSONObject)
-        //{
-        //    JObject obj = JObject.Parse(JSONObject);
-
-        //    JToken snakeProp = obj["vertices"];
-        //    if (snakeProp != null)
-        //    {
-        //        SnakeObject rebuiltSnake = JsonConvert.DeserializeObject<SnakeObject>(JSONObject);
-        //        world.AddSnake(rebuiltSnake);
-        //    }
-
-        //    JToken FoodProp = obj["loc"];
-        //    if (FoodProp != null)
-        //    {
-        //        Food rebuiltFood = JsonConvert.DeserializeObject<Food>(JSONObject);
-        //        world.AddFood(rebuiltFood);
-        //    }
-        //}
 
         public void handleRecieveFileList(string fileListMessage)
         {
@@ -171,6 +159,11 @@ namespace SS
                 files.Add(parts[i].Trim());
             }
             fileListRecieved(files);
+        }
+
+        public void handleOpenSpreadsheet(string DocID)
+        {
+
         }
     }
 }
