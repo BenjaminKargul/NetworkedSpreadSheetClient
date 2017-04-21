@@ -19,6 +19,7 @@ namespace SS
         {
             InitializeComponent();
             this.server = theServer;
+            server.SendCommand("0\n");
             text = NameBox.Text;
         }
 

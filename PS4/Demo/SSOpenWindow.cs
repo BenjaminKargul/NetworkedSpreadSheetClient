@@ -14,11 +14,12 @@ namespace SS
     {
         Controller server;
         List<String> files;
-        public SSOpenWindow(Controller server)
+        public SSOpenWindow(Controller Server)
         {
             InitializeComponent();
 
-            this.server = server;
+            server.SendCommand("0\n");
+            this.server = Server;
             server.fileListRecieved += displayFileList;
             server.handleRecieveFileList("0\tfile1.sprd\tfile2.sprd\tfile3.sprd\tfile4.sprd\tfile5.sprd\n");
         }
