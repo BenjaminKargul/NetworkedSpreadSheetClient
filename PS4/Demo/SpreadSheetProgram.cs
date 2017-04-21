@@ -178,19 +178,7 @@ namespace SS
             Close();
         }
 
-        /// <summary>
-        /// Called when "Save As" menu button is clicked. Opens save as dialog.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void menuSaveAs_Click(object sender, EventArgs e)
-        {
-            ////////////////////////////////////////////////////////////////////////////////////
-            //to be modified to work with server saving maybe change to rename call?
-           // theServer.SendCommand("7\t" + docID + "\t" + SaveAsDialog.FileName + "\n");
-            SaveAsDialog.FileName = fileName;
-            SaveAsDialog.ShowDialog();
-        }
+        
 
         /// <summary>
         /// Called when "Save" menu item is clicked. Saves the file.
@@ -198,48 +186,11 @@ namespace SS
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void menuSave_Click(object sender, EventArgs e)
-        {
-            /////////////////////////////////////////////
-            //unneeded?
-            if (initiallySaved)
-            {
-                //If the file had already had "save as" called, just save the file.
-
-                //spreadsheetData.Save(filePath);
-
-                theServer.SendCommand("6\t" + docID + "\n");
-                updateFormTitle();
-            }
-            else
-            {
-                //Else, perform a "save as" instead.
-                menuSaveAs.PerformClick();
-            }
-
+        {         
+            theServer.SendCommand("6\t" + docID + "\n");    
         }
 
-        /// <summary>
-        /// The event to run when "Save" is clicked in the save as dialog. Saves the file.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SaveAsDialog_FileOk(object sender, CancelEventArgs e)
-        {
-            /////////////////////////////////////////////////////////////////////////////////////////////
-            //unneeded?
-            //Get the file path, and the name, of the file.
-           // filePath = SaveAsDialog.FileName;
-            //Filepath actually contains the file name as well, just extract it.
-            //fileName = Path.GetFileName(filePath);
-
-           // //Save the file
-            //spreadsheetData.Save(filePath);
-
-
-            initiallySaved = true;
-
-            updateFormTitle();
-        }
+      
 
         /// <summary>
         /// Called when "Help" menu button clicked. Opens help menu.
@@ -263,8 +214,9 @@ namespace SS
         {
             ////////////////////////////////////////////////////
             //to be replaced with code that recieves information from the server
-
-            OpenFile.ShowDialog();
+            SSOpenWindow toOpen = new SSOpenWindow(theServer);
+            toOpen.ShowDialog();
+          //  OpenFile.ShowDialog();
         }
 
         /// <summary>
@@ -472,6 +424,21 @@ namespace SS
         {
             theServer.SendCommand("8\t" + docID + "\t" + boxCurrentCell + "\n");
             //////////////////////////////////////////might want to change this
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            theServer.SendCommand("4\t" + docID + "\n");
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            theServer.SendCommand("5\t" + docID + "\n");
+        }
+
+        private void renameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             theServer.SendCommand("7\t" + docID + "\t" + "tbd" + "\n");
         }
     }
 }
