@@ -20,15 +20,18 @@ namespace SS
             this.server = Server;
             server.SendCommand("0\n");
             server.fileListRecieved += displayFileList;
+<<<<<<< HEAD
+            
+=======
             listBoxSpreadsheets.DataSource = files;
-            //this.Invoke((MethodInvoker)delegate () { foreach (string item in files) { listBoxSpreadsheets.Items.Add(item); } });
             //server.handleRecieveFileList("0\tfile1.sprd\tfile2.sprd\tfile3.sprd\tfile4.sprd\tfile5.sprd\n");
+>>>>>>> 5dff3ded9ef2e7c8232cb4aeebf7d7c06afc721c
         }
 
         public void displayFileList(List<String> files)
         {
             this.files = files;
-            this.Invoke((MethodInvoker)delegate () { foreach (string item in files) { listBoxSpreadsheets.Items.Add(item); } });
+            listBoxSpreadsheets.Refresh();
         }
 
         private void listBoxSpreadsheets_SelectedIndexChanged(object sender, EventArgs e)
