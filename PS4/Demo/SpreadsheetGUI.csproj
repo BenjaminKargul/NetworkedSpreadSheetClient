@@ -78,6 +78,12 @@
       <DependentUpon>LoginWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="NetworkController.cs" />
+    <Compile Include="SSNewWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSNewWindow.Designer.cs">
+      <DependentUpon>SSNewWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="SpreadSheetProgram.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SSNewWindow.resx">
+      <DependentUpon>SSNewWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SSOpenWindow.resx">
       <DependentUpon>SSOpenWindow.cs</DependentUpon>
     </EmbeddedResource>

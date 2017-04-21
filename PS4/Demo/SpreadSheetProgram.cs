@@ -19,10 +19,12 @@ namespace SS
     /// </summary>
     public partial class Form1 : Form
     {
+        private Controller theServer;
         private Spreadsheet spreadsheetData;
+        int docID;
 
         //Used to keep track of file name and path, so clicking save will work after initial save as
-        string filePath;
+        //string filePath;
         string fileName;
 
         //Used to keep track of a new spreadsheet form being initially saved (clicking save brings
@@ -32,11 +34,12 @@ namespace SS
         /// <summary>
         /// Constructor for the Spreadsheet window.
         /// </summary>
-        public Form1()
+        public Form1(Controller server, int id)
         {
             spreadsheetData = new Spreadsheet(isValidCellName, s => s.ToUpper(), "ps6");
             fileName = "New Spreadsheet.sprd";
-
+            theServer = server;
+            docID = id;
             InitializeComponent();
 
             //Every time the selection on the panel changes, update the contents of the text boxes on top of GUI.
@@ -152,11 +155,14 @@ namespace SS
         /// <param name="e"></param>
         private void menuNew_Click(object sender, EventArgs e)
         {
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////*********************************************************************************/
+            //####################################################################################################################
+            //important
             //tbd
             // Tell the application context to run the form on the same
             // thread as the other forms.
-            DemoApplicationContext.getAppContext().RunForm(new Form1());
+            DemoApplicationContext.getAppContext().RunForm(new Form1(theServer, docID));
         }
 
         /// <summary>
@@ -168,6 +174,7 @@ namespace SS
         {
             //////////////////////////////////////////////////////////////////////////////////////
             //tbd
+            theServer.SendCommand("9\t" + docID + "\n");
             Close();
         }
 
@@ -179,8 +186,9 @@ namespace SS
         private void menuSaveAs_Click(object sender, EventArgs e)
         {
             ////////////////////////////////////////////////////////////////////////////////////
-            //to be modified to work with server saving
-            SaveAsDialog.FileName = fileName;
+            //to be modified to work with server saving maybe change to rename call?
+            theServer.SendCommand("7\t" + docID + "\t" + SaveAsDialog.FileName + "\n");
+           // SaveAsDialog.FileName = fileName;
             SaveAsDialog.ShowDialog();
         }
 
@@ -197,9 +205,9 @@ namespace SS
             {
                 //If the file had already had "save as" called, just save the file.
 
-                spreadsheetData.Save(filePath);
+                //spreadsheetData.Save(filePath);
 
-
+                theServer.SendCommand("6\t" + docID + "\n");
                 updateFormTitle();
             }
             else
@@ -220,12 +228,12 @@ namespace SS
             /////////////////////////////////////////////////////////////////////////////////////////////
             //unneeded?
             //Get the file path, and the name, of the file.
-            filePath = SaveAsDialog.FileName;
+           // filePath = SaveAsDialog.FileName;
             //Filepath actually contains the file name as well, just extract it.
-            fileName = Path.GetFileName(filePath);
+            //fileName = Path.GetFileName(filePath);
 
-            //Save the file
-            spreadsheetData.Save(filePath);
+           // //Save the file
+            //spreadsheetData.Save(filePath);
 
 
             initiallySaved = true;
@@ -345,26 +353,26 @@ namespace SS
             }
 
             //Store previous data incase an exception happens with opening the file
-            string oldFilePath = filePath;
-            string oldFileName = fileName;
-            Spreadsheet oldSpreadsheet = spreadsheetData;
+            //string oldFilePath = filePath;
+            //string oldFileName = fileName;
+            //Spreadsheet oldSpreadsheet = spreadsheetData;
 
-            //Get file name and path from the dialog
-            filePath = OpenFile.FileName;
-            fileName = Path.GetFileName(filePath);
+            ////Get file name and path from the dialog
+            //filePath = OpenFile.FileName;
+            //fileName = Path.GetFileName(filePath);
 
 
             try
             {
                 //Create a new spreadsheet with the desired filepath
-                spreadsheetData = new Spreadsheet(filePath, isValidCellName, s => s.ToUpper(), "ps6");
+                //spreadsheetData = new Spreadsheet(filePath, isValidCellName, s => s.ToUpper(), "ps6");
             }
             catch(Exception ex)
             {
                 //Catch any IO exceptions, restore old data
-                filePath = oldFilePath;
-                fileName = oldFileName;
-                spreadsheetData = oldSpreadsheet;
+                //filePath = oldFilePath;
+                //fileName = oldFileName;
+                //spreadsheetData = oldSpreadsheet;
 
                 MessageBox.Show("Error opening file. \n\n" + ex.Message);
 
