@@ -62,7 +62,8 @@ namespace SS
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
-            //open a new form
+            SSNewWindow openWindow = new SSNewWindow(server);
+            openWindow.ShowDialog();
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
