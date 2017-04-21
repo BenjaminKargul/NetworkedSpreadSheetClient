@@ -114,7 +114,7 @@ namespace SS
         private void ReceiveSSData(SocketState ss)
         {
             string totalData = ss.sb.ToString();
-            string[] parts = Regex.Split(totalData, @"\t");
+            string[] parts = Regex.Split(totalData, @"\n");
 
             lock (ssLock)
             {
@@ -127,40 +127,54 @@ namespace SS
                     // So we need to ignore it if this happens. 
                     if (p[p.Length - 1] != '\n')
                         break;
-                    if (p == "0")
+                    string[] messageParts = Regex.Split(p, @"\t");
+                    if (messageParts[0] == "0")
                     {
-                        
+                        handleRecieveFileList(p);
                     }
-                    ////processJSONData(p);
+                    else if (messageParts[0] == "1" || messageParts[0] == "2")
+                    {
+                        Form1 newSSWindow = new Form1(this, int.Parse(messageParts[2]));
+                        newSSWindow.ShowDialog();
+                    }
+                    else if (messageParts[0] == "3")
+                    {
+                        //cell update
+                    }
+                    else if (messageParts[0] == "4")
+                    {
+                        //valid edit
+                    }
+                    else if (messageParts[0] == "5")
+                    {
+                        //invalid edit
+                    }
+                    else if (messageParts[0] == "6")
+                    {
+                        //rename
+                    }
+                    else if (messageParts[0] == "7")
+                    {
+                        //save
+                    }
+                    else if (messageParts[0] == "8")
+                    {
+                        //Valid rename
+                    }
+                    else if (messageParts[0] == "9")
+                    {
+                        //edit location
+                    }
+                    else if (messageParts[0] == "A")
+                    {
+                    }
                     // Then remove it from the SocketState's growable buffer
                     ss.sb.Remove(0, p.Length);
                 }
             }
-            //updated();
         }
 
-        /// <summary>
-        /// process the JSON data coming in from the server and add to the model
-        /// </summary>
-        /// <param name="JSONObject">string representing a json object</param>
-        //private void processJSONData(String JSONObject)
-        //{
-        //    JObject obj = JObject.Parse(JSONObject);
 
-        //    JToken snakeProp = obj["vertices"];
-        //    if (snakeProp != null)
-        //    {
-        //        SnakeObject rebuiltSnake = JsonConvert.DeserializeObject<SnakeObject>(JSONObject);
-        //        world.AddSnake(rebuiltSnake);
-        //    }
-
-        //    JToken FoodProp = obj["loc"];
-        //    if (FoodProp != null)
-        //    {
-        //        Food rebuiltFood = JsonConvert.DeserializeObject<Food>(JSONObject);
-        //        world.AddFood(rebuiltFood);
-        //    }
-        //}
 
         public void handleRecieveFileList(string fileListMessage)
         {

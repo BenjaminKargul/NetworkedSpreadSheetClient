@@ -19,6 +19,7 @@ namespace SS
             InitializeComponent();
 
             this.server = server;
+            //call to request files
             server.fileListRecieved += displayFileList;
             server.handleRecieveFileList("0\tfile1.sprd\tfile2.sprd\tfile3.sprd\tfile4.sprd\tfile5.sprd\n");
         }
