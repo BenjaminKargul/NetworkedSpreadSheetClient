@@ -20,15 +20,14 @@ namespace SS
             this.server = Server;
             server.SendCommand("0\n");
             server.fileListRecieved += displayFileList;
-            server.handleRecieveFileList("0\tfile1.sprd\tfile2.sprd\tfile3.sprd\tfile4.sprd\tfile5.sprd\n");
+            listBoxSpreadsheets.DataSource = files;
+            //server.handleRecieveFileList("0\tfile1.sprd\tfile2.sprd\tfile3.sprd\tfile4.sprd\tfile5.sprd\n");
         }
 
         public void displayFileList(List<String> files)
         {
-            foreach(string fileName in files)
-            {
-                listBoxSpreadsheets.Items.Add(fileName);
-            }
+            this.files = files;
+            listBoxSpreadsheets.Refresh();
         }
 
         private void listBoxSpreadsheets_SelectedIndexChanged(object sender, EventArgs e)
