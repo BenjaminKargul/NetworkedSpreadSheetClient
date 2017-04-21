@@ -22,7 +22,7 @@ namespace SS
         private Spreadsheet spreadsheetData;
 
         //Used to keep track of file name and path, so clicking save will work after initial save as
-        string filePath;
+        //string filePath;
         string fileName;
 
         //Used to keep track of a new spreadsheet form being initially saved (clicking save brings
@@ -197,7 +197,7 @@ namespace SS
             {
                 //If the file had already had "save as" called, just save the file.
 
-                spreadsheetData.Save(filePath);
+                //spreadsheetData.Save(filePath);
 
 
                 updateFormTitle();
@@ -220,12 +220,12 @@ namespace SS
             /////////////////////////////////////////////////////////////////////////////////////////////
             //unneeded?
             //Get the file path, and the name, of the file.
-            filePath = SaveAsDialog.FileName;
+           // filePath = SaveAsDialog.FileName;
             //Filepath actually contains the file name as well, just extract it.
-            fileName = Path.GetFileName(filePath);
+            //fileName = Path.GetFileName(filePath);
 
-            //Save the file
-            spreadsheetData.Save(filePath);
+           // //Save the file
+            //spreadsheetData.Save(filePath);
 
 
             initiallySaved = true;
@@ -345,26 +345,26 @@ namespace SS
             }
 
             //Store previous data incase an exception happens with opening the file
-            string oldFilePath = filePath;
-            string oldFileName = fileName;
-            Spreadsheet oldSpreadsheet = spreadsheetData;
+            //string oldFilePath = filePath;
+            //string oldFileName = fileName;
+            //Spreadsheet oldSpreadsheet = spreadsheetData;
 
-            //Get file name and path from the dialog
-            filePath = OpenFile.FileName;
-            fileName = Path.GetFileName(filePath);
+            ////Get file name and path from the dialog
+            //filePath = OpenFile.FileName;
+            //fileName = Path.GetFileName(filePath);
 
 
             try
             {
                 //Create a new spreadsheet with the desired filepath
-                spreadsheetData = new Spreadsheet(filePath, isValidCellName, s => s.ToUpper(), "ps6");
+                //spreadsheetData = new Spreadsheet(filePath, isValidCellName, s => s.ToUpper(), "ps6");
             }
             catch(Exception ex)
             {
                 //Catch any IO exceptions, restore old data
-                filePath = oldFilePath;
-                fileName = oldFileName;
-                spreadsheetData = oldSpreadsheet;
+                //filePath = oldFilePath;
+                //fileName = oldFileName;
+                //spreadsheetData = oldSpreadsheet;
 
                 MessageBox.Show("Error opening file. \n\n" + ex.Message);
 

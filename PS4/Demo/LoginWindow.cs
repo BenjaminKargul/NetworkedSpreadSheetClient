@@ -49,6 +49,8 @@ namespace SS
                         this.Enabled = true;
                         textBoxUserName.Enabled = true;
                         textBoxHostName.Enabled = true;
+                        buttonConnect.Text = "Connect";
+                        buttonConnect.Enabled = true;
                         return;
                     }
                 }
