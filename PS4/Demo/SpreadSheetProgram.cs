@@ -187,8 +187,8 @@ namespace SS
         {
             ////////////////////////////////////////////////////////////////////////////////////
             //to be modified to work with server saving maybe change to rename call?
-            theServer.SendCommand("7\t" + docID + "\t" + SaveAsDialog.FileName + "\n");
-           // SaveAsDialog.FileName = fileName;
+           // theServer.SendCommand("7\t" + docID + "\t" + SaveAsDialog.FileName + "\n");
+            SaveAsDialog.FileName = fileName;
             SaveAsDialog.ShowDialog();
         }
 
@@ -263,6 +263,7 @@ namespace SS
         {
             ////////////////////////////////////////////////////
             //to be replaced with code that recieves information from the server
+
             OpenFile.ShowDialog();
         }
 
