@@ -86,7 +86,6 @@ namespace SS
         private void ConnectionEstablished(SocketState ss)
         {
             ss.handleConnection = Initialization;
-
         }
 
         /// <summary>
@@ -115,18 +114,23 @@ namespace SS
         {
             string totalData = ss.sb.ToString();
             string[] parts = Regex.Split(totalData, @"\n");
+            int numberOfValidMessages = parts.Length;
+            if (totalData[totalData.Length - 1] != '\n')
+            {
+                numberOfValidMessages--;
+            }
 
+            //if the last 
             lock (ssLock)
             {
-                foreach (string p in parts)
+                for(int i = 0; i < numberOfValidMessages;i++)
                 {
+                    string p = parts[i];
                     // Ignore empty strings added by the regex splitter
                     if (p.Length == 0)
                         continue;
                     // The regex splitter will include the last string even if it doesn't end with a '\n',
                     // So we need to ignore it if this happens. 
-                    if (p[p.Length - 1] != '\n')
-                        break;
                     string[] messageParts = Regex.Split(p, @"\t");
                     if (messageParts[0] == "0")
                     {
