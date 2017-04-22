@@ -174,7 +174,7 @@ namespace SS
         {
             //////////////////////////////////////////////////////////////////////////////////////
             //tbd
-            theServer.SendCommand("9\t" + docID + "\n");
+            
             Close();
         }
 
@@ -365,8 +365,10 @@ namespace SS
                 else
                 {
                     e.Cancel = false;
+                    
                 }
             }
+            theServer.SendCommand("9\t" + docID + "\n");
         }
 
         /// <summary>
