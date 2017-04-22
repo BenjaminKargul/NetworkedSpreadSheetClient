@@ -73,6 +73,7 @@
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "SSOpenWindow";
             this.Text = "Open a Spreadsheet";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SSOpenWindow_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

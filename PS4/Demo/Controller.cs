@@ -18,6 +18,9 @@ namespace SS
         public delegate void FileListRecievedHandler(List<String> files);
         public event FileListRecievedHandler fileListRecieved;
 
+        public delegate void CloseOpenFormsHandler();
+        public event CloseOpenFormsHandler CloseAllOpenForms;
+
         //could hold the spreadsheet?
         //public WorldModel world
         //{
