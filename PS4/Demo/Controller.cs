@@ -35,7 +35,7 @@ namespace SS
 
         //private int playerID = -1;
         private int clientID = -1;
-        private int docID = -1;
+        private Dictionary<int, Spreadsheet> openSheets;
         private string filename = "";
         //private int width = -1;
         //private int height = -1;
@@ -138,6 +138,7 @@ namespace SS
                     }
                     else if (messageParts[0] == "1" || messageParts[0] == "2")
                     {
+                        createNewSpreadsheet(int.Parse(messageParts[1]));
                         Form1 newSSWindow = new Form1(this, int.Parse(messageParts[1]));
                         newSSWindow.ShowDialog();
 
@@ -179,7 +180,10 @@ namespace SS
             }
         }
 
-
+        private void createNewSpreadsheet(int DocID)
+        {
+            
+        }
 
         public void handleRecieveFileList(string fileListMessage)
         {
