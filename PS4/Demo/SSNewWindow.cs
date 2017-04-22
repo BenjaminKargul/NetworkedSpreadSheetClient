@@ -15,17 +15,38 @@ namespace SS
     {
         string text;
         Controller server;
-        public SSNewWindow(Controller theServer)
+        string theType;
+        int docId;
+        public SSNewWindow(Controller theServer, string type, int id)
         {
             InitializeComponent();
             this.server = theServer;
-            server.SendCommand("0\n");
+            if (type == "new")
+            {
+                CreateNewButton.Text = "Create New";
+                server.SendCommand("0\n");
+            }
+            else
+            {
+                CreateNewButton.Text = "Rename";
+            }
+            theType = type;
+            docId = id;
+            
             text = NameBox.Text;
         }
 
         private void CreateNewButton_Click(object sender, EventArgs e)
         {
-            server.SendCommand("1\t" + text + "\n");
+            if (theType == "new")
+            {
+                server.SendCommand("1\t" + text + "\n");
+            }
+            else
+            {
+                server.SendCommand("7\t"+docId+"\t" + text + "\n");
+            }
+            
         }
 
         private void NameBox_TextChanged(object sender, EventArgs e)

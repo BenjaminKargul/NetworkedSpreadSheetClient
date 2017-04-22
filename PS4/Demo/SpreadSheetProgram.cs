@@ -438,7 +438,8 @@ namespace SS
 
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-             theServer.SendCommand("7\t" + docID + "\t" + "tbd" + "\n");
+            SSNewWindow openWindow = new SSNewWindow(theServer, "rename", docID);
+            openWindow.ShowDialog();
         }
     }
 }
