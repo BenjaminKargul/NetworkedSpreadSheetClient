@@ -140,6 +140,7 @@ namespace SS
                     {
                         Form1 newSSWindow = new Form1(this, int.Parse(messageParts[1]));
                         newSSWindow.ShowDialog();
+
                     }
                     else if (messageParts[0] == "3")
                     {

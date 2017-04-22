@@ -62,7 +62,7 @@ namespace SS
 
         private void buttonNew_Click(object sender, EventArgs e)
         {
-            SSNewWindow openWindow = new SSNewWindow(server);
+            SSNewWindow openWindow = new SSNewWindow(server, "new", -1);
             openWindow.ShowDialog();
         }
 
