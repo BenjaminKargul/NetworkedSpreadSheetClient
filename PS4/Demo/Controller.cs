@@ -100,6 +100,7 @@ namespace SS
             string IDMessage = ss.sb.ToString();
             IDMessage.Trim();
             Int32.TryParse(IDMessage, out clientID);
+            openSheets = new Dictionary<int, Spreadsheet>();
             ss.sb.Remove(0, IDMessage.Length);
             ss.handleConnection = ReceiveSSData;
 
