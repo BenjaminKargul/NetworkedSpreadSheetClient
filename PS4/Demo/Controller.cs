@@ -118,7 +118,7 @@ namespace SS
         private void ReceiveSSData(SocketState ss)
         {
             string totalData = ss.sb.ToString();
-            string[] parts = Regex.Split(totalData, @"\n");
+            string[] parts = Regex.Split(totalData, @"(\n)");
             int numberOfValidMessages = parts.Length;
             if (totalData[totalData.Length - 1] != '\n')
             {
@@ -128,7 +128,7 @@ namespace SS
             //if the last 
             lock (ssLock)
             {
-                for(int i = 0; i < numberOfValidMessages;i++)
+                for(int i = 0; i < parts.Length;i++)
                 {
                     string p = parts[i];
                     // Ignore empty strings added by the regex splitter
@@ -178,7 +178,9 @@ namespace SS
                     }
                     // Then remove it from the SocketState's growable buffer
                     ss.sb.Remove(0, p.Length);
+                    string currentData = ss.sb.ToString();
                 }
+                string currentData2 = ss.sb.ToString();
             }
         }
 
@@ -192,9 +194,8 @@ namespace SS
                 Form1 newSSWindow = new Form1(this, DocID);
                 newSSWindow.ShowDialog();
             });
-            
             theSpreadsheet.Start();
-            
+
         }
         
         public void handleReceiveFileList(string fileListMessage)
