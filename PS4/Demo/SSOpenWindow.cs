@@ -44,7 +44,7 @@ namespace SS
         private void SSOpenWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             server.fileListRecieved -= displayFileList;
-            Close();
+            server.CloseAllOpenForms -= Close;
         }
     }
 }

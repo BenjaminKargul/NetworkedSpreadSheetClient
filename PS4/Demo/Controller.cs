@@ -142,8 +142,7 @@ namespace SS
                     else if (messageParts[0] == "1" || messageParts[0] == "2")
                     {
                         createNewSpreadsheet(int.Parse(messageParts[1]));
-                        Form1 newSSWindow = new Form1(this, int.Parse(messageParts[1]));
-                        newSSWindow.ShowDialog();
+                        
 
                     }
                     else if (messageParts[0] == "3")
@@ -185,7 +184,9 @@ namespace SS
 
         private void createNewSpreadsheet(int DocID)
         {
-            
+            CloseAllOpenForms();
+            Form1 newSSWindow = new Form1(this, DocID);
+            newSSWindow.ShowDialog();
         }
 
         public void handleRecieveFileList(string fileListMessage)

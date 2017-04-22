@@ -57,6 +57,7 @@ namespace SS
                 buttonConnect.Text = "Connected";
                 buttonNew.Show();
                 buttonOpen.Show();
+                server.CloseAllOpenForms += Close;
             }
         }
 
@@ -70,6 +71,12 @@ namespace SS
         {
             SSOpenWindow openWindow = new SSOpenWindow(server);
             openWindow.ShowDialog();
+        }
+
+        private void LoginWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            server.CloseAllOpenForms -= Close;
+            Close();
         }
     }
 }

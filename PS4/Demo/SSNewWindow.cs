@@ -21,6 +21,7 @@ namespace SS
         {
             InitializeComponent();
             this.server = theServer;
+            server.CloseAllOpenForms += Close;
             if (type == "new")
             {
                 CreateNewButton.Text = "Create New";
@@ -52,6 +53,11 @@ namespace SS
         private void NameBox_TextChanged(object sender, EventArgs e)
         {
             text = NameBox.Text;
+        }
+
+        private void SSNewWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            server.CloseAllOpenForms -= Close;
         }
     }
 }

@@ -60,6 +60,7 @@
             this.Controls.Add(this.NameBox);
             this.Name = "SSNewWindow";
             this.Text = "NewFileForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SSNewWindow_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
