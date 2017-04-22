@@ -35,21 +35,20 @@
             this.menuOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuSave = new System.Windows.Forms.ToolStripMenuItem();
             this.menuClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.boxCellContents = new System.Windows.Forms.TextBox();
             this.boxCellValue = new System.Windows.Forms.TextBox();
             this.boxCurrentCell = new System.Windows.Forms.TextBox();
             this.SaveAsDialog = new System.Windows.Forms.SaveFileDialog();
             this.buttonSetContents = new System.Windows.Forms.Button();
             this.OpenFile = new System.Windows.Forms.OpenFileDialog();
-            this.findToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearSpreadSheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -94,30 +93,61 @@
             // menuNew
             // 
             this.menuNew.Name = "menuNew";
-            this.menuNew.Size = new System.Drawing.Size(152, 22);
+            this.menuNew.Size = new System.Drawing.Size(103, 22);
             this.menuNew.Text = "New";
             this.menuNew.Click += new System.EventHandler(this.menuNew_Click);
             // 
             // menuOpen
             // 
             this.menuOpen.Name = "menuOpen";
-            this.menuOpen.Size = new System.Drawing.Size(152, 22);
+            this.menuOpen.Size = new System.Drawing.Size(103, 22);
             this.menuOpen.Text = "Open";
             this.menuOpen.Click += new System.EventHandler(this.menuOpen_Click);
             // 
             // menuSave
             // 
             this.menuSave.Name = "menuSave";
-            this.menuSave.Size = new System.Drawing.Size(152, 22);
+            this.menuSave.Size = new System.Drawing.Size(103, 22);
             this.menuSave.Text = "Save";
             this.menuSave.Click += new System.EventHandler(this.menuSave_Click);
             // 
             // menuClose
             // 
             this.menuClose.Name = "menuClose";
-            this.menuClose.Size = new System.Drawing.Size(152, 22);
+            this.menuClose.Size = new System.Drawing.Size(103, 22);
             this.menuClose.Text = "Close";
             this.menuClose.Click += new System.EventHandler(this.menuClose_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.undoToolStripMenuItem,
+            this.redoToolStripMenuItem,
+            this.renameToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "&Edit";
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
+            // 
+            // redoToolStripMenuItem
+            // 
+            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
+            this.redoToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.redoToolStripMenuItem.Text = "Redo";
+            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
+            // 
+            // renameToolStripMenuItem
+            // 
+            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.renameToolStripMenuItem.Text = "Rename";
+            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
             // menuHelp
             // 
@@ -125,6 +155,29 @@
             this.menuHelp.Size = new System.Drawing.Size(44, 20);
             this.menuHelp.Text = "Help";
             this.menuHelp.Click += new System.EventHandler(this.menuHelp_Click);
+            // 
+            // extrasToolStripMenuItem
+            // 
+            this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.findToolStripMenuItem1,
+            this.graphToolStripMenuItem});
+            this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
+            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.extrasToolStripMenuItem.Text = "Extras";
+            // 
+            // findToolStripMenuItem1
+            // 
+            this.findToolStripMenuItem1.Name = "findToolStripMenuItem1";
+            this.findToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.findToolStripMenuItem1.Text = "Find";
+            this.findToolStripMenuItem1.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
+            // 
+            // graphToolStripMenuItem
+            // 
+            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
+            this.graphToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graphToolStripMenuItem.Text = "Graph";
+            this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
             // boxCellContents
             // 
@@ -156,7 +209,7 @@
             // 
             this.buttonSetContents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonSetContents.Location = new System.Drawing.Point(411, 21);
-            this.buttonSetContents.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.buttonSetContents.Margin = new System.Windows.Forms.Padding(1);
             this.buttonSetContents.Name = "buttonSetContents";
             this.buttonSetContents.Size = new System.Drawing.Size(99, 20);
             this.buttonSetContents.TabIndex = 5;
@@ -169,68 +222,6 @@
             this.OpenFile.DefaultExt = "sprd";
             this.OpenFile.Filter = "Spreadsheet (*.sprd) |*.sprd| All Files (*.*)|*.*";
             this.OpenFile.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFile_FileOk);
-            // 
-            // findToolStripMenuItem1
-            // 
-            this.findToolStripMenuItem1.Name = "findToolStripMenuItem1";
-            this.findToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
-            this.findToolStripMenuItem1.Text = "Find";
-            this.findToolStripMenuItem1.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
-            // 
-            // clearSpreadSheetToolStripMenuItem
-            // 
-            this.clearSpreadSheetToolStripMenuItem.Name = "clearSpreadSheetToolStripMenuItem";
-            this.clearSpreadSheetToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.clearSpreadSheetToolStripMenuItem.Text = "Clear SpreadSheet";
-            this.clearSpreadSheetToolStripMenuItem.Click += new System.EventHandler(this.clearSpreadSheetToolStripMenuItem_Click);
-            // 
-            // graphToolStripMenuItem
-            // 
-            this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
-            this.graphToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.graphToolStripMenuItem.Text = "Graph";
-            this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
-            // 
-            // extrasToolStripMenuItem
-            // 
-            this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.findToolStripMenuItem1,
-            this.clearSpreadSheetToolStripMenuItem,
-            this.graphToolStripMenuItem});
-            this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
-            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
-            this.extrasToolStripMenuItem.Text = "Extras";
-            // 
-            // editToolStripMenuItem
-            // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.undoToolStripMenuItem,
-            this.redoToolStripMenuItem,
-            this.renameToolStripMenuItem});
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "&Edit";
-            // 
-            // undoToolStripMenuItem
-            // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
-            // 
-            // redoToolStripMenuItem
-            // 
-            this.redoToolStripMenuItem.Name = "redoToolStripMenuItem";
-            this.redoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.redoToolStripMenuItem.Text = "Redo";
-            this.redoToolStripMenuItem.Click += new System.EventHandler(this.redoToolStripMenuItem_Click);
-            // 
-            // renameToolStripMenuItem
-            // 
-            this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.renameToolStripMenuItem.Text = "Rename";
-            this.renameToolStripMenuItem.Click += new System.EventHandler(this.renameToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -274,7 +265,6 @@
         private System.Windows.Forms.OpenFileDialog OpenFile;
         private System.Windows.Forms.ToolStripMenuItem extrasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem clearSpreadSheetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;

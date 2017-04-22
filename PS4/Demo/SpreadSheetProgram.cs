@@ -381,39 +381,7 @@ namespace SS
             find.Show();
         }
 
-        /// <summary>
-        /// Called when Clear button is clicked.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void clearSpreadSheetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //either will need to change to send the server all the changes or be removed entirely
-            var clearMessage = MessageBox.Show("Are you sure you want to clear the spreadsheet?",
-                    "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            //If decided not to clear
-            if (clearMessage == DialogResult.No)
-            {
-                return;
-            }
-            //Else continue clearing
-
-            int row, col;
-            boxCellContents.Text = "";
-            boxCellValue.Text = "";
-
-            //Go through each cell in the spreadsheet and clear it
-            foreach (string s in spreadsheetData.GetNamesOfAllNonemptyCells())
-            {
-                spreadsheetData.SetContentsOfCell(s,"");
-                cellNameStringToNum(s, out row, out col);
-                spreadsheetPanel1.SetValue(col, row, "");
-            }
-            updateFormTitle();
-        }
-
+        
         private void graphToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GraphForm graphWindow = new GraphForm(spreadsheetData);

@@ -20,7 +20,6 @@ namespace SS
             this.server = Server;
             server.SendCommand("0\n");
             server.fileListRecieved += displayFileList;
-            server.CloseAllOpenForms += Close;
             listBoxSpreadsheets.DataSource = files;
         }
 
@@ -43,8 +42,8 @@ namespace SS
 
         private void SSOpenWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            server.fileListRecieved -= displayFileList;
-            Close();
+           server.fileListRecieved -= displayFileList;
+            
         }
     }
 }
