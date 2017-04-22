@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static SS.NetworkController;
+using System.Threading;
 
 namespace SS
 {
@@ -186,10 +187,16 @@ namespace SS
             //CloseAllOpenForms();
             Spreadsheet newSS = new Spreadsheet();
             openSheets.Add(DocID, newSS);
-            Form1 newSSWindow = new Form1(this, DocID);
-            newSSWindow.ShowDialog();
+            Thread theSpreadsheet = new Thread(() =>
+            {
+                Form1 newSSWindow = new Form1(this, DocID);
+                newSSWindow.ShowDialog();
+            });
+            
+            theSpreadsheet.Start();
+            
         }
-
+        
         public void handleReceiveFileList(string fileListMessage)
         {
             string[] parts = Regex.Split(fileListMessage, @"\t");

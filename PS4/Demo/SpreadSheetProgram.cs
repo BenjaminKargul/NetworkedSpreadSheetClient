@@ -22,7 +22,7 @@ namespace SS
         private Controller theServer;
         private Spreadsheet spreadsheetData;
         int docID;
-        bool justSelected = false;
+        bool justSelected = true;
 
         //Used to keep track of file name and path, so clicking save will work after initial save as
         //string filePath;
@@ -234,34 +234,49 @@ namespace SS
             {
                 int row, col;
 
-                //get cell position, name anad new contents from text box
+                //get cell position, name and new contents from text box
                 spreadsheetPanel1.GetSelection(out col, out row);
                 string cellName = cellNameNumToString(row, col);
                 string newCellContents = boxCellContents.Text;
-
-                //Set the cell to it's new value, update the displayed value in the textbox and spreadsheet
-                ISet<string> cellsToUpdate = spreadsheetData.SetContentsOfCell(cellName, newCellContents);
-                String value = spreadsheetData.getCellValueAsString(cellName);
-
-                spreadsheetPanel1.SetValue(col, row, value);
-
-                //Update the text boxes with current values
-                displaySelection(spreadsheetPanel1);
-                                
-                updateCellValues(cellsToUpdate);
-
-            } //Only catch if the exception is a CircularException or a FormulaFormatException
-            catch (Exception ex) when (ex is CircularException || ex is FormulaFormatException)
-            {
-                if(ex is CircularException)
+                
+                //double possiblyContents;
+                //if(Double.TryParse(newCellContents, out possiblyContents))
+                //{
+                //    theServer.SendCommand("3\t" + docID + "\t" + cellName + "\t" + possiblyContents + "\n");
+                //}
+                //else
+                //{
+                if(newCellContents.Length == 0)
                 {
-                    MessageBox.Show("This change would cause a formula to rely on itself, and cannot be completed.");
+                    theServer.SendCommand("3\t" + docID + "\t" + cellName + "\t" + newCellContents + "\n");
+                }
+                else if (newCellContents.Length>0 && newCellContents[0]!= '=')
+                {
+                    theServer.SendCommand("3\t" + docID + "\t" + cellName + "\t" + newCellContents+ "\n");
                 }
                 else
                 {
-                    //Print formula format exception instead
-                    MessageBox.Show(ex.Message);
+                    //do some formula shit
                 }
+                //}
+                        
+                
+                //Set the cell to it's new value, update the displayed value in the textbox and spreadsheet
+                //ISet<string> cellsToUpdate = spreadsheetData.SetContentsOfCell(cellName, newCellContents);
+                //String value = spreadsheetData.getCellValueAsString(cellName);
+
+                //spreadsheetPanel1.SetValue(col, row, value);
+
+                //Update the text boxes with current values
+                //displaySelection(spreadsheetPanel1);
+                                
+                //updateCellValues(cellsToUpdate);
+
+            } //Only catch if the exception is a CircularException or a FormulaFormatException
+            catch (Exception ex) when (ex is FormulaFormatException)
+            {
+                //Print formula format exception instead
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -396,7 +411,12 @@ namespace SS
         {
             if(justSelected)
             {
-                theServer.SendCommand("8\t" + docID + "\t" + boxCurrentCell + "\n");
+                int row, col;
+
+                //get cell position, name and new contents from text box
+                spreadsheetPanel1.GetSelection(out col, out row);
+                string cellName = cellNameNumToString(row, col);
+                theServer.SendCommand("8\t" + docID + "\t" + cellName + "\n");
                 justSelected = false;
             }
             
