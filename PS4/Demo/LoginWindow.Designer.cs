@@ -117,7 +117,6 @@
             this.MinimumSize = new System.Drawing.Size(250, 240);
             this.Name = "LoginWindow";
             this.Text = "Login to Spreadsheet";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoginWindow_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
