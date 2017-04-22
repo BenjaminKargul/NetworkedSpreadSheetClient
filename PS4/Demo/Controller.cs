@@ -142,8 +142,6 @@ namespace SS
                     else if (messageParts[0] == "1" || messageParts[0] == "2")
                     {
                         createNewSpreadsheet(int.Parse(messageParts[1]));
-                        
-
                     }
                     else if (messageParts[0] == "3")
                     {
@@ -185,6 +183,8 @@ namespace SS
         private void createNewSpreadsheet(int DocID)
         {
             //CloseAllOpenForms();
+            Spreadsheet newSS = new Spreadsheet();
+            openSheets.Add(DocID, newSS);
             Form1 newSSWindow = new Form1(this, DocID);
             newSSWindow.ShowDialog();
         }
