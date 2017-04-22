@@ -21,8 +21,7 @@ namespace SS
             server.SendCommand("0\n");
             server.fileListRecieved += displayFileList;
             listBoxSpreadsheets.DataSource = files;
-            //this.Invoke((MethodInvoker)delegate () { foreach (string item in files) { listBoxSpreadsheets.Items.Add(item); } });
-            //server.handleRecieveFileList("0\tfile1.sprd\tfile2.sprd\tfile3.sprd\tfile4.sprd\tfile5.sprd\n");
+            
         }
 
         public void displayFileList(List<String> files)
