@@ -22,6 +22,7 @@ namespace SS
         private Controller theServer;
         private Spreadsheet spreadsheetData;
         int docID;
+        bool justSelected = false;
 
         //Used to keep track of file name and path, so clicking save will work after initial save as
         //string filePath;
@@ -138,13 +139,13 @@ namespace SS
             ///////////////////////////////////////////////////////////////////////////
             //confused as to what this is actually doing, does it change the selection boxes at the top? if it does it probably doesnt need to be changed
             int row, col;
-
+            
             ss.GetSelection(out col, out row);
             string cellName = cellNameNumToString(row, col);
             boxCellContents.Text = spreadsheetData.GetCellContentsAsString(cellName);
             boxCellValue.Text = spreadsheetData.getCellValueAsString(cellName);
             boxCurrentCell.Text = cellName;
-
+            justSelected = true;
             updateFormTitle();
         }
 
@@ -162,7 +163,9 @@ namespace SS
             //tbd
             // Tell the application context to run the form on the same
             // thread as the other forms.
-            DemoApplicationContext.getAppContext().RunForm(new Form1(theServer, docID));
+            SSNewWindow NewOpen = new SSNewWindow(theServer, "new", -1);
+            NewOpen.Show();
+            //DemoApplicationContext.getAppContext().RunForm(new Form1(theServer, docID));
         }
 
         /// <summary>
@@ -391,7 +394,12 @@ namespace SS
 
         private void boxCellContents_TextChanged(object sender, EventArgs e)
         {
-            theServer.SendCommand("8\t" + docID + "\t" + boxCurrentCell + "\n");
+            if(justSelected)
+            {
+                theServer.SendCommand("8\t" + docID + "\t" + boxCurrentCell + "\n");
+                justSelected = false;
+            }
+            
             //////////////////////////////////////////might want to change this
         }
 

@@ -138,7 +138,7 @@ namespace SS
                     string[] messageParts = Regex.Split(p, @"\t");
                     if (messageParts[0] == "0")
                     {
-                        handleRecieveFileList(p);
+                        handleReceiveFileList(p);
                     }
                     else if (messageParts[0] == "1" || messageParts[0] == "2")
                     {
@@ -190,7 +190,7 @@ namespace SS
             newSSWindow.ShowDialog();
         }
 
-        public void handleRecieveFileList(string fileListMessage)
+        public void handleReceiveFileList(string fileListMessage)
         {
             string[] parts = Regex.Split(fileListMessage, @"\t");
             List<string> files = new List<string>();
