@@ -18,8 +18,8 @@ namespace SS
         public delegate void FileListRecievedHandler(List<String> files);
         public event FileListRecievedHandler fileListRecieved;
 
-        public delegate void CloseOpenFormsHandler();
-        public event CloseOpenFormsHandler CloseAllOpenForms;
+        //public delegate void CloseOpenFormsHandler();
+        //public event CloseOpenFormsHandler CloseAllOpenForms;
 
         //could hold the spreadsheet?
         //public WorldModel world
@@ -184,7 +184,7 @@ namespace SS
 
         private void createNewSpreadsheet(int DocID)
         {
-            CloseAllOpenForms();
+            //CloseAllOpenForms();
             Form1 newSSWindow = new Form1(this, DocID);
             newSSWindow.ShowDialog();
         }
