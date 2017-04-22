@@ -138,7 +138,7 @@ namespace SS
                     }
                     else if (messageParts[0] == "1" || messageParts[0] == "2")
                     {
-                        Form1 newSSWindow = new Form1(this, int.Parse(messageParts[2]));
+                        Form1 newSSWindow = new Form1(this, int.Parse(messageParts[1]));
                         newSSWindow.ShowDialog();
                     }
                     else if (messageParts[0] == "3")
