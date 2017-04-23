@@ -322,7 +322,7 @@ namespace SS
             value = contents;
             cellNameStringToNum(cellToUpdate, out row, out col);
             spreadsheetPanel1.SetValue(col, row, value);
-            updateFormTitle();
+          //  updateFormTitle();
         }
 
         /// <summary>

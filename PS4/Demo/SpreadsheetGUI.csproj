@@ -71,12 +71,6 @@
     <Compile Include="GraphForm.Designer.cs">
       <DependentUpon>GraphForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InvalidAction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InvalidAction.Designer.cs">
-      <DependentUpon>InvalidAction.cs</DependentUpon>
-    </Compile>
     <Compile Include="LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -118,9 +112,6 @@
     </Compile>
     <EmbeddedResource Include="GraphForm.resx">
       <DependentUpon>GraphForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InvalidAction.resx">
-      <DependentUpon>InvalidAction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>

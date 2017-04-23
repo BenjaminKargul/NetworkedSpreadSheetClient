@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static SS.NetworkController;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace SS
 {
@@ -161,8 +162,9 @@ namespace SS
                     {
                         //invalid edit
                         //need to tell the user they fucked up
-                        InvalidAction ErrorWindow = new InvalidAction("edit");
-                        ErrorWindow.Show();
+                        MessageBox.Show("Invalid edit sent to server, you likely sent a formula that caused a circular exception. Your edit has been rejected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                      
+                        
 
                     }
                     else if (messageParts[0] == "6")
@@ -189,8 +191,8 @@ namespace SS
                     {
                         //invalid rename
                         //also tell the user they fucked up
-                        InvalidAction errorWindow = new InvalidAction("Rename");
-                        errorWindow.Show();
+                        MessageBox.Show("Invalid name sent to the server. The name already exist. Your renaming has been rejected", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        
                     }
                     else if (messageParts[0] == "A")
                     {
