@@ -48,10 +48,7 @@ namespace SS
             spreadsheetPanel1.SetSelection(0, 0); //Set initial selection to A1
         }
 
-        public void UpdateSheetTitle()
-        {
-
-        }
+     
         /// <summary>
         /// Converts a row and column number into a valid cell name.
         /// </summary>
@@ -118,7 +115,7 @@ namespace SS
         }
         public void ChangeName(string newName)
         {
-            spreadsheetData.setChanged(false);
+            //spreadsheetData.setChanged(false);
             fileName = newName;
             updateFormTitle();
             
