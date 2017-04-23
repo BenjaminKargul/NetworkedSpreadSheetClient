@@ -30,7 +30,7 @@ namespace SS
 
         //Used to keep track of a new spreadsheet form being initially saved (clicking save brings
         //up the "save as" dialog instead
-        bool initiallySaved;
+        bool isSaved;
 
         /// <summary>
         /// Constructor for the Spreadsheet window.
@@ -48,6 +48,10 @@ namespace SS
             spreadsheetPanel1.SetSelection(0, 0); //Set initial selection to A1
         }
 
+        public void UpdateSheetTitle()
+        {
+
+        }
         /// <summary>
         /// Converts a row and column number into a valid cell name.
         /// </summary>
@@ -112,15 +116,32 @@ namespace SS
 
             return rowValid && colValid;
         }
-
+        public void ChangeName(string newName)
+        {
+            this.Invoke((MethodInvoker)delegate () {
+                fileName = newName;
+                spreadsheetData.MakeUnchanged();
+                updateFormTitle();
+             });
+            
+        }
+        public void showSaved()
+        {
+            this.Invoke((MethodInvoker)delegate () {
+                spreadsheetData.MakeUnchanged();
+                updateFormTitle();
+            });
+            
+        }
         /// <summary>
         /// Updates the title according to the save status of the file. 
         /// </summary>
         private void updateFormTitle()
         {
+
             /////////////////////////////////////
             //likely going to be removed or changed to reflect server saving 
-            if(!initiallySaved || spreadsheetData.Changed)
+            if(spreadsheetData.Changed)
             {
                 this.Text = fileName + "*";
             }
@@ -192,7 +213,12 @@ namespace SS
             theServer.SendCommand("6\t" + docID + "\n");    
         }
 
-      
+        internal void ShowOthers(string cell, int userId, string name)
+        {
+            throw new NotImplementedException();
+        }
+
+
 
         /// <summary>
         /// Called when "Help" menu button clicked. Opens help menu.
@@ -280,25 +306,22 @@ namespace SS
             }
         }
 
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //to be looked at more
         /// <summary>
         /// Used to redraw the desired cells.
         /// </summary>
         /// <param name="cellsToUpdate">The cells to redraw</param>
-        private void updateCellValues(IEnumerable<string> cellsToUpdate)
+        public void updateCellValues(string cellToUpdate, string contents)
         {
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
             //needs to change to recieve info from the server to decided what needs to be updated
             int row, col;
             String value;
-
-            foreach (string cell in cellsToUpdate)
-            {
-                //change the displayed cells to reflect updates
-                value = spreadsheetData.getCellValueAsString(cell);
-                cellNameStringToNum(cell, out row, out col);
-                spreadsheetPanel1.SetValue(col, row, value);
-            }
-
+            //change the displayed cells to reflect updates
+            value = contents;
+            cellNameStringToNum(cellToUpdate, out row, out col);
+            spreadsheetPanel1.SetValue(col, row, value);
             updateFormTitle();
         }
 
@@ -350,10 +373,10 @@ namespace SS
             }
 
             //Spreadsheet is technically saved
-            initiallySaved = true;
+            isSaved = true;
 
             //Redraw all cells
-            updateCellValues(spreadsheetData.GetNamesOfAllNonemptyCells());
+            //updateCellValues(spreadsheetData.GetNamesOfAllNonemptyCells());
 
             updateFormTitle();
         }

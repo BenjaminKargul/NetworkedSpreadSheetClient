@@ -39,7 +39,7 @@ namespace SS
 
         //private int playerID = -1;
         private int clientID = -1;
-        private Dictionary<int, Spreadsheet> openSheets;
+        private Dictionary<int, Form1> openSheets;
         private string filename = "";
         //private int width = -1;
         //private int height = -1;
@@ -101,7 +101,7 @@ namespace SS
             string IDMessage = ss.sb.ToString();
             IDMessage.Trim();
             Int32.TryParse(IDMessage, out clientID);
-            openSheets = new Dictionary<int, Spreadsheet>();
+            openSheets = new Dictionary<int, Form1>();
             ss.sb.Remove(0, IDMessage.Length);
             ss.handleConnection = ReceiveSSData;
 
@@ -148,33 +148,60 @@ namespace SS
                     else if (messageParts[0] == "3")
                     {
                         //cell update
+                        int id = int.Parse(messageParts[1]);
+                        openSheets[id].updateCellValues(messageParts[2], messageParts[3]);
                     }
                     else if (messageParts[0] == "4")
                     {
                         //valid edit
+                        //does this even need to do anything?
+                        //i dont think so
                     }
                     else if (messageParts[0] == "5")
                     {
                         //invalid edit
+                        //need to tell the user they fucked up
+                        InvalidAction ErrorWindow = new InvalidAction("edit");
+                        ErrorWindow.Show();
+
                     }
                     else if (messageParts[0] == "6")
                     {
                         //rename
+                        //need to see about making things propagate to the server
+                        int id = int.Parse(messageParts[1]);
+                        openSheets[id].ChangeName(messageParts[2]);
                     }
                     else if (messageParts[0] == "7")
                     {
                         //save
+                        //same as above
+                        int id = int.Parse(messageParts[1]);
+                        openSheets[id].showSaved();
+                        
                     }
                     else if (messageParts[0] == "8")
                     {
                         //Valid rename
+                        //probably also doesnt need to do anything
                     }
                     else if (messageParts[0] == "9")
                     {
-                        //edit location
+                        //invalid rename
+                        //also tell the user they fucked up
+                        InvalidAction errorWindow = new InvalidAction("Rename");
+                        errorWindow.Show();
                     }
                     else if (messageParts[0] == "A")
                     {
+                        //who's editing what
+                        //need to see about how we're going to do this
+                        int id = int.Parse(messageParts[1]);
+                        string cell = messageParts[2];
+                        int userId = int.Parse(messageParts[3]);
+                        string name = messageParts[4];
+                        //issue with threads possibly, will have to see about this
+                        openSheets[id].ShowOthers(cell, userId, name);
                     }
                     // Then remove it from the SocketState's growable buffer
                     ss.sb.Remove(0, p.Length);
@@ -187,12 +214,14 @@ namespace SS
         private void createNewSpreadsheet(int DocID)
         {
             //CloseAllOpenForms();
-            Spreadsheet newSS = new Spreadsheet();
-            openSheets.Add(DocID, newSS);
+            
+            
             Thread theSpreadsheet = new Thread(() =>
             {
                 Form1 newSSWindow = new Form1(this, DocID);
+                openSheets.Add(DocID, newSSWindow);
                 newSSWindow.ShowDialog();
+                
             });
             theSpreadsheet.Start();
 

@@ -38,7 +38,7 @@ namespace SS
 
             protected set;
         }
-
+        
         /// <summary>
         /// Constructs a new, empty spreadsheet. 
         /// </summary>
@@ -79,7 +79,10 @@ namespace SS
         {
             loadSpreadsheet(filePath);
         }
-
+        public void MakeUnchanged()
+        {
+            Changed = false;
+        }
         /// <summary>
         /// Helper method to load the spreadsheet from a file.
         /// </summary>
@@ -203,6 +206,7 @@ namespace SS
             this.SetContentsOfCell(name, contents);
 
         }
+
 
         /// <summary>
         /// Helper method for reading the contents of a cell (between <contents></contents> tags)
