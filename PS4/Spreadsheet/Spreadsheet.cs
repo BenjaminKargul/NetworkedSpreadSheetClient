@@ -516,7 +516,6 @@ namespace SS
 
                 //Continue throwing the exception
                 throw e;
-
             }
         }
 

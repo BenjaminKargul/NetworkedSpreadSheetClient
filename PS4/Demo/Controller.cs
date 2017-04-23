@@ -150,6 +150,8 @@ namespace SS
                     {
                         //cell update
                         int id = int.Parse(messageParts[1]);
+                        //here we recieve a response with the cell number
+                        //Controller method to actually make the contents change and find all the changed cells   
                         openSheets[id].updateCellValues(messageParts[2], messageParts[3]);
                     }
                     else if (messageParts[0] == "4")
