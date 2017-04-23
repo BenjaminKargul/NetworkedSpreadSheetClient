@@ -35,6 +35,7 @@
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonNew = new System.Windows.Forms.Button();
             this.buttonOpen = new System.Windows.Forms.Button();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxUserName
@@ -71,7 +72,7 @@
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(76, 90);
+            this.buttonConnect.Location = new System.Drawing.Point(12, 88);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(90, 40);
             this.buttonConnect.TabIndex = 4;
@@ -99,11 +100,23 @@
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
+            // CancelButton
+            // 
+            this.CancelButton.Enabled = false;
+            this.CancelButton.Location = new System.Drawing.Point(122, 88);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(100, 40);
+            this.CancelButton.TabIndex = 7;
+            this.CancelButton.Text = "Cancel";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
             // LoginWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(234, 201);
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.buttonOpen);
             this.Controls.Add(this.buttonNew);
             this.Controls.Add(this.buttonConnect);
@@ -131,5 +144,6 @@
         private System.Windows.Forms.Button buttonConnect;
         private System.Windows.Forms.Button buttonNew;
         private System.Windows.Forms.Button buttonOpen;
+        private System.Windows.Forms.Button CancelButton;
     }
 }

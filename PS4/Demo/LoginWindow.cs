@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static SS.NetworkController;
@@ -14,12 +15,14 @@ namespace SS
 {
     public partial class LoginWindow : Form
     {
+        Thread workerThread;
         Controller server;
         public LoginWindow()
         {
             InitializeComponent();
             buttonOpen.Hide();
             buttonNew.Hide();
+          
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -29,34 +32,50 @@ namespace SS
 
             if (user == "" || hostname == "")
             {
-                
+
                 MessageBox.Show(this, "Not all fields are properly filled out", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                Stopwatch t = new Stopwatch();
-                t.Start();
+
+                CancelButton.Enabled = true;
                 textBoxUserName.Enabled = false;
                 textBoxHostName.Enabled = false;
                 buttonConnect.Text = "Connecting...";
                 buttonConnect.Enabled = false;
-                server = new Controller(user, hostname);
-                while (!server.ssReady)
+                workerThread = new Thread(() =>
                 {
-                    if (t.Elapsed.Seconds > 30)
+                    Stopwatch t = new Stopwatch();
+                    t.Start();
+                    server = new Controller(user, hostname);
+                    while (!server.ssReady)
                     {
-                        MessageBox.Show(this, "Unable to connect to server, please check for valid server and try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.Enabled = true;
-                        textBoxUserName.Enabled = true;
-                        textBoxHostName.Enabled = true;
-                        buttonConnect.Text = "Connect";
-                        buttonConnect.Enabled = true;
-                        return;
+                        if (t.Elapsed.Seconds > 30)
+                        {
+                            //invoker
+                            this.Invoke((MethodInvoker)delegate ()
+                            {
+                                MessageBox.Show(this, "Unable to connect to server, please check for valid server and try again", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //this.Enabled = true;
+                                textBoxUserName.Enabled = true;
+                                textBoxHostName.Enabled = true;
+                                buttonConnect.Text = "Connect";
+                                buttonConnect.Enabled = true;
+                                return;
+                            });
+                        }
                     }
-                }
-                buttonConnect.Text = "Connected";
-                buttonNew.Show();
-                buttonOpen.Show();
+                    //invoker
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+                        buttonConnect.Text = "Connected";
+                        buttonNew.Show();
+                        buttonOpen.Show();
+                        CancelButton.Enabled = false;
+                    });
+
+                });
+                workerThread.Start();
             }
         }
 
@@ -70,6 +89,16 @@ namespace SS
         {
             SSOpenWindow openWindow = new SSOpenWindow(server);
             openWindow.ShowDialog();
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            workerThread.Abort();
+            textBoxUserName.Enabled = true;
+            textBoxHostName.Enabled = true;
+            buttonConnect.Text = "Connect";
+            buttonConnect.Enabled = true;
+            CancelButton.Enabled = false;
         }
     }
 }
