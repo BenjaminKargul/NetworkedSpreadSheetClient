@@ -285,6 +285,8 @@ namespace SS
                     //creating the formula tests for validity
                     Formula newF = new Formula(newCellContents.Substring(1));
                     theServer.SendCommand("3\t" + docID + "\t" + cellName + "\t" + newF.ToString() + "\n");
+                    //Spreadsheet newSS = new Spreadsheet();
+                    //newSS.
                 }
                 //}
                         
@@ -324,7 +326,7 @@ namespace SS
             value = contents;
             cellNameStringToNum(cellToUpdate, out row, out col);
             spreadsheetPanel1.SetValue(col, row, value);
-          //  updateFormTitle();
+           // updateFormTitle();
         }
 
         public void recieveSSEdit(string cellToUpdate, string newContents)
