@@ -149,8 +149,10 @@ namespace SS
                     else if (messageParts[0] == "3")
                     {
                         //cell update
-                        int id = int.Parse(messageParts[1]); 
-                        openSheets[id].recieveSSEdit(messageParts[2], messageParts[3]);
+                        int id = int.Parse(messageParts[1]);
+                        Form1 returnedForm;
+                        openSheets.TryGetValue(id,out returnedForm);
+                        returnedForm.recieveSSEdit(messageParts[2], messageParts[3]);
                     }
                     else if (messageParts[0] == "4")
                     {

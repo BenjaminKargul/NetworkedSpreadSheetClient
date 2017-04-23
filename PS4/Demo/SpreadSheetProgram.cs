@@ -331,7 +331,7 @@ namespace SS
         public void recieveSSEdit(string cellToUpdate, string newContents)
         {
             spreadsheetData.setChanged(true);
-            List<String> changedCells = (List<String>)spreadsheetData.SetContentsOfCell(cellToUpdate, newContents);
+            List<String> changedCells = spreadsheetData.SetContentsOfCell(cellToUpdate, newContents).ToList<String>();
             foreach (String cellName in changedCells)
             {
                 int row, col;
