@@ -282,7 +282,9 @@ namespace SS
                 }
                 else
                 {
-                    //do some formula shit
+                    //creating the formula tests for validity
+                    Formula newF = new Formula(newCellContents.Substring(1));
+                    theServer.SendCommand("3\t" + docID + "\t" + cellName + "\t" + newF.ToString() + "\n");
                 }
                 //}
                         
@@ -302,7 +304,7 @@ namespace SS
             catch (Exception ex) when (ex is FormulaFormatException)
             {
                 //Print formula format exception instead
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(this,ex.Message, "Invalid Formula",MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 
@@ -323,6 +325,13 @@ namespace SS
             cellNameStringToNum(cellToUpdate, out row, out col);
             spreadsheetPanel1.SetValue(col, row, value);
             updateFormTitle();
+        }
+
+        public void recieveSSEdit(string cellToUpdate, string newContents)
+        {
+            //get the cell name
+            //go into our spreadsheet, change the contents of the cell
+            //
         }
 
         /// <summary>
