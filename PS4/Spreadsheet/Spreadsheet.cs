@@ -79,9 +79,9 @@ namespace SS
         {
             loadSpreadsheet(filePath);
         }
-        public void MakeUnchanged()
+        public void setChanged(bool isItChanged)
         {
-            Changed = false;
+            Changed = isItChanged;
         }
         /// <summary>
         /// Helper method to load the spreadsheet from a file.

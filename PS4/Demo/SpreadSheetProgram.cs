@@ -118,19 +118,17 @@ namespace SS
         }
         public void ChangeName(string newName)
         {
-            this.Invoke((MethodInvoker)delegate () {
-                fileName = newName;
-                spreadsheetData.MakeUnchanged();
-                updateFormTitle();
-             });
+            spreadsheetData.setChanged(false);
+            fileName = newName;
+            updateFormTitle();
+            
             
         }
         public void showSaved()
         {
-            this.Invoke((MethodInvoker)delegate () {
-                spreadsheetData.MakeUnchanged();
-                updateFormTitle();
-            });
+            spreadsheetData.setChanged(false);
+            updateFormTitle();
+            
             
         }
         /// <summary>
@@ -138,17 +136,20 @@ namespace SS
         /// </summary>
         private void updateFormTitle()
         {
+            this.Invoke((MethodInvoker)delegate ()
+            {
 
-            /////////////////////////////////////
-            //likely going to be removed or changed to reflect server saving 
-            if(spreadsheetData.Changed)
-            {
-                this.Text = fileName + "*";
-            }
-            else
-            {
-                this.Text = fileName;
-            }
+                /////////////////////////////////////
+                //likely going to be removed or changed to reflect server saving 
+                if (spreadsheetData.Changed)
+                {
+                    this.Text = fileName + "*";
+                }
+                else
+                {
+                    this.Text = fileName;
+                }
+            });
         }
 
         /// <summary>
@@ -322,11 +323,14 @@ namespace SS
             //needs to change to recieve info from the server to decided what needs to be updated
             int row, col;
             String value;
+            spreadsheetData.setChanged(true);
             //change the displayed cells to reflect updates
             value = contents;
             cellNameStringToNum(cellToUpdate, out row, out col);
             spreadsheetPanel1.SetValue(col, row, value);
-           // updateFormTitle();
+
+            updateFormTitle();
+
         }
 
         public void recieveSSEdit(string cellToUpdate, string newContents)
