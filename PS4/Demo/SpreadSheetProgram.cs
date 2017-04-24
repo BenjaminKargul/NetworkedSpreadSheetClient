@@ -14,6 +14,15 @@ using System.Web.UI.DataVisualization.Charting;
 
 namespace SS
 {
+
+    //To Do
+    //Propogate spreadsheet name to new spreadsheets when they're opened, and opened spreadsheets
+    //Each user editing has a different color to display their highlights
+    //highlights dissapear when the edit moves away for the same person
+    //Opening a spreadsheet after the first one has already been open, seg faults
+
+
+
     /// <summary>
     /// Example of using a SpreadsheetPanel object
     /// </summary>
@@ -213,7 +222,10 @@ namespace SS
 
         internal void ShowOthers(string cell, int userId, string name)
         {
-            throw new NotImplementedException();
+            int row, col;
+            cellNameStringToNum(cell, out row, out col);
+
+            spreadsheetPanel1.highlightCell(col, row);
         }
 
 
@@ -282,7 +294,7 @@ namespace SS
                 {
                     //creating the formula tests for validity
                     Formula newF = new Formula(newCellContents.Substring(1));
-                    theServer.SendCommand("3\t" + docID + "\t" + cellName + "\t" + newF.ToString() + "\n");
+                    theServer.SendCommand("3\t" + docID + "\t" + cellName + "\t" + newCellContents + "\n");
                     //Spreadsheet newSS = new Spreadsheet();
                     //newSS.
                 }
