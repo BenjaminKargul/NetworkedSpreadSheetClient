@@ -14,6 +14,8 @@ namespace SS
     {
         Controller server;
         List<String> files;
+        string startFile ="";
+      
         public SSOpenWindow(Controller Server)
         {
             InitializeComponent();
@@ -22,7 +24,16 @@ namespace SS
             server.fileListRecieved += displayFileList;
             listBoxSpreadsheets.DataSource = files;
         }
-
+        public SSOpenWindow(Controller Server, string sourceFile)
+        {
+            InitializeComponent();
+            this.server = Server;
+            server.SendCommand("0\n");
+            server.fileListRecieved += displayFileList;
+            listBoxSpreadsheets.DataSource = files;
+            startFile = sourceFile;
+        }
+       
         public void displayFileList(List<String> files)
         {
             this.files = files;
@@ -36,8 +47,13 @@ namespace SS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //tbd
-            server.SendCommand("2\t" + listBoxSpreadsheets.GetItemText(listBoxSpreadsheets.SelectedItem) + "\n");
+            string name = listBoxSpreadsheets.GetItemText(listBoxSpreadsheets.SelectedItem);
+            if (startFile == name )
+            {
+                Close();
+            }
+            server.SendCommand("2\t" + name + "\n");
+            server.filename = name;
         }
 
         private void SSOpenWindow_FormClosing(object sender, FormClosingEventArgs e)

@@ -41,6 +41,7 @@ namespace SS
             if (theType == "new")
             {
                 server.SendCommand("1\t" + text + "\n");
+                server.filename = text;
             }
             else
             {

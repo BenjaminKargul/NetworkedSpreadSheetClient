@@ -91,16 +91,17 @@ namespace SS
         }
 
         /// <summary>
-        /// Highlight the desired cell
+        /// highlight the desired cell
         /// </summary>
-        /// <param name="row"></param>
         /// <param name="col"></param>
+        /// <param name="row"></param>
+        /// <param name="cellColor"></param>
         /// <returns></returns>
-        public bool highlightCell(int col, int row)
+        public bool highlightCell(int col, int row, Color cellColor)
         {
             Address cell = new Address(col, row);
 
-            return drawingPanel.addHighlightedCell(cell);
+            return drawingPanel.addHighlightedCell(cell, cellColor);
         }
 
         /// <summary>
@@ -264,8 +265,7 @@ namespace SS
             private SpreadsheetPanel _ssp;
 
             // List of cells to highlight
-            private HashSet<Address> highlightedCells = new HashSet<Address>();
-
+            private Dictionary<Address, Color> highlightedCells = new Dictionary<Address, Color>();
 
             public DrawingPanel(SpreadsheetPanel ss)
             {
@@ -427,17 +427,17 @@ namespace SS
 
 
                 // Draw highlighted boxes
-                foreach (var addr in highlightedCells)
+                foreach (KeyValuePair<Address, Color> thePair in highlightedCells)
                 {
-                    Brush highlighter = new SolidBrush(Color.FromArgb(200, Color.Yellow));
+                    Brush highlighter = new SolidBrush(Color.FromArgb(200, thePair.Value));
 
                     //Check to see if the highlighted cell is visible
-                    if ((addr.Col - _firstColumn >= 0) && (addr.Row - _firstRow >= 0))
+                    if ((thePair.Key.Col - _firstColumn >= 0) && (thePair.Key.Row - _firstRow >= 0))
                     {
                         e.Graphics.FillRectangle(
                             highlighter,
-                            new Rectangle(LABEL_COL_WIDTH + (addr.Col - _firstColumn) * DATA_COL_WIDTH + 1,
-                                          LABEL_ROW_HEIGHT + (addr.Row - _firstRow) * DATA_ROW_HEIGHT + 1,
+                            new Rectangle(LABEL_COL_WIDTH + (thePair.Key.Col - _firstColumn) * DATA_COL_WIDTH + 1,
+                                          LABEL_ROW_HEIGHT + (thePair.Key.Row - _firstRow) * DATA_ROW_HEIGHT + 1,
                                           DATA_COL_WIDTH - 2,
                                           DATA_ROW_HEIGHT - 2));
                     }
@@ -537,16 +537,17 @@ namespace SS
             /// <summary>
             /// Add a cell to be highlighted on next paint operation
             /// </summary>
-            /// <param name="cell">Cell to be highlighted</param>
+            /// <param name="cell"></param>
+            /// <param name="highlightColor"></param>
             /// <returns></returns>
-            internal bool addHighlightedCell(Address cell)
+            internal bool addHighlightedCell(Address cell, Color highlightColor)
             {
                 if(InvalidAddress(cell.Col, cell.Row))
                 {
                     return false;
                 }
 
-                highlightedCells.Add(cell);
+                highlightedCells[cell] = highlightColor;
 
                 Invalidate();
 

@@ -28,11 +28,15 @@ namespace SS
     /// </summary>
     public partial class Form1 : Form
     {
+        
         private Controller theServer;
         private Spreadsheet spreadsheetData;
         int docID;
         bool justSelected = true;
+        private bool finishedInit = false;
 
+        Dictionary<int, Color> userColors;
+        Dictionary<int, string> userCell;
         //Used to keep track of file name and path, so clicking save will work after initial save as
         //string filePath;
         string fileName;
@@ -51,13 +55,33 @@ namespace SS
             theServer = server;
             docID = id;
             InitializeComponent();
-
+            userCell = new Dictionary<int, string>();
+            userColors = new Dictionary<int, Color>();
             //Every time the selection on the panel changes, update the contents of the text boxes on top of GUI.
             spreadsheetPanel1.SelectionChanged += displaySelection;
             spreadsheetPanel1.SetSelection(0, 0); //Set initial selection to A1
+            finishedInit = true;
+        }
+        public Form1(Controller server, int id, string nameSheet)
+        {
+            spreadsheetData = new Spreadsheet(isValidCellName, s => s.ToUpper(), "ps6");
+            fileName = nameSheet;
+            theServer = server;
+            docID = id;
+            InitializeComponent();
+            userCell = new Dictionary<int, string>();
+            userColors = new Dictionary<int, Color>();
+            //Every time the selection on the panel changes, update the contents of the text boxes on top of GUI.
+            spreadsheetPanel1.SelectionChanged += displaySelection;
+            spreadsheetPanel1.SetSelection(0, 0); //Set initial selection to A1
+            finishedInit = true;
+            this.Text = fileName;
         }
 
-     
+        public bool initCheck()
+        {
+            return finishedInit;
+        }
         /// <summary>
         /// Converts a row and column number into a valid cell name.
         /// </summary>
@@ -223,9 +247,31 @@ namespace SS
         internal void ShowOthers(string cell, int userId, string name)
         {
             int row, col;
-            cellNameStringToNum(cell, out row, out col);
+            if (userCell.ContainsKey(userId))
+            {
+                if (userCell[userId] == cell)
+                {
+                    //do nothing
+                }
+                else
+                {
+                    userCell[userId] = cell;
+                    cellNameStringToNum(cell, out row, out col);
+                    spreadsheetPanel1.highlightCell(col, row, userColors[userId]);
+                }
+            }
+            else
+            {
+                userCell[userId] = cell;
+                Random randomGen = new Random();
+                Color newColor = Color.FromArgb(randomGen.Next(0, 255), randomGen.Next(0, 255), randomGen.Next(0, 255));
+                userColors[userId] = newColor;
+                cellNameStringToNum(cell, out row, out col);
 
-            spreadsheetPanel1.highlightCell(col, row);
+                spreadsheetPanel1.highlightCell(col, row, userColors[userId]);
+            }
+            
+            
         }
 
 
@@ -252,7 +298,7 @@ namespace SS
         {
             ////////////////////////////////////////////////////
             //to be replaced with code that recieves information from the server
-            SSOpenWindow toOpen = new SSOpenWindow(theServer);
+            SSOpenWindow toOpen = new SSOpenWindow(theServer, fileName);
             toOpen.ShowDialog();
           //  OpenFile.ShowDialog();
         }

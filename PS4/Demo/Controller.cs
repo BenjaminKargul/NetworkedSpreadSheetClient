@@ -41,7 +41,7 @@ namespace SS
         //private int playerID = -1;
         private int clientID = -1;
         private Dictionary<int, Form1> openSheets;
-        private string filename = "";
+        public string filename = "";
         //private int width = -1;
         //private int height = -1;
         public bool ssReady
@@ -144,7 +144,7 @@ namespace SS
                     }
                     else if (messageParts[0] == "1" || messageParts[0] == "2")
                     {
-                        createNewSpreadsheet(int.Parse(messageParts[1]));
+                        createNewSpreadsheet(int.Parse(messageParts[1]), filename);
                     }
                     else if (messageParts[0] == "3")
                     {
@@ -152,6 +152,14 @@ namespace SS
                         int id = int.Parse(messageParts[1]);
                         Form1 returnedForm;
                         openSheets.TryGetValue(id,out returnedForm);
+                        while(returnedForm == null)
+                        {
+                            openSheets.TryGetValue(id, out returnedForm);
+                        }
+                        while(!returnedForm.initCheck())
+                        {
+                            //just wait till it is done;
+                        }
                         returnedForm.recieveSSEdit(messageParts[2], messageParts[3]);
                     }
                     else if (messageParts[0] == "4")
@@ -212,10 +220,10 @@ namespace SS
             }
         }
 
-        private void createNewSpreadsheet(int DocID)
+        private void createNewSpreadsheet(int DocID, string sheetName)
         {
             //CloseAllOpenForms();
-            Form1 newSSWindow = new Form1(this, DocID);
+            Form1 newSSWindow = new Form1(this, DocID, sheetName);
             openSheets.Add(DocID, newSSWindow);
 
             Thread theSpreadsheet = new Thread(() =>
