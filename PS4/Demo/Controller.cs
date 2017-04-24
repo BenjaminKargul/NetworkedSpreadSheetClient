@@ -215,12 +215,13 @@ namespace SS
         private void createNewSpreadsheet(int DocID)
         {
             //CloseAllOpenForms();
-            
-            
+            Form1 newSSWindow = new Form1(this, DocID);
+            openSheets.Add(DocID, newSSWindow);
+
             Thread theSpreadsheet = new Thread(() =>
             {
-                Form1 newSSWindow = new Form1(this, DocID);
-                openSheets.Add(DocID, newSSWindow);
+                
+                
                 newSSWindow.ShowDialog();
                 
             });
