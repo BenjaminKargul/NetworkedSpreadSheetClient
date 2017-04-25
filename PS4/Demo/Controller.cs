@@ -222,18 +222,40 @@ namespace SS
 
         private void createNewSpreadsheet(int DocID, string sheetName)
         {
-            //CloseAllOpenForms();
-            Form1 newSSWindow = new Form1(this, DocID, sheetName);
-            openSheets.Add(DocID, newSSWindow);
-
-            Thread theSpreadsheet = new Thread(() =>
+            
+            if(openSheets.ContainsKey(DocID))
             {
+                if (!openSheets[DocID].IsHandleCreated)
+                {
+                    Form1 newSSWindow = new Form1(this, DocID, sheetName);
+                    openSheets[DocID] = newSSWindow;
+                    Thread theSpreadsheet = new Thread(() =>
+                    {
+
+
+                        newSSWindow.ShowDialog();
+
+                    });
+                    theSpreadsheet.Start();
+                }
+            }
+            else
+            {
+                Form1 newSSWindow = new Form1(this, DocID, sheetName);
+                openSheets[DocID] = newSSWindow;
+                Thread theSpreadsheet = new Thread(() =>
+                {
+
+
+                    newSSWindow.ShowDialog();
+
+                });
+                theSpreadsheet.Start();
                 
-                
-                newSSWindow.ShowDialog();
-                
-            });
-            theSpreadsheet.Start();
+            }
+            
+
+            
             
 
         }

@@ -15,6 +15,7 @@ namespace SS
         Controller server;
         List<String> files;
         string startFile ="";
+        bool beenInitialized = false;
       
         public SSOpenWindow(Controller Server)
         {
@@ -23,6 +24,7 @@ namespace SS
             server.SendCommand("0\n");
             server.fileListRecieved += displayFileList;
             listBoxSpreadsheets.DataSource = files;
+            beenInitialized = true;
         }
         public SSOpenWindow(Controller Server, string sourceFile)
         {
@@ -32,12 +34,30 @@ namespace SS
             server.fileListRecieved += displayFileList;
             listBoxSpreadsheets.DataSource = files;
             startFile = sourceFile;
+            beenInitialized = true;
         }
        
         public void displayFileList(List<String> files)
         {
+            while (!beenInitialized)
+            {
+                //wait
+            }
             this.files = files;
-            this.Invoke((MethodInvoker)delegate () { foreach (string item in files) { listBoxSpreadsheets.Items.Add(item); } });
+            this.Invoke((MethodInvoker)delegate () {
+                foreach (string item in files)
+                {
+                    if (listBoxSpreadsheets.Items.Contains(item))
+                    {
+
+                    }
+                    else
+                    {
+                        listBoxSpreadsheets.Items.Add(item);
+                    }
+                    
+                }
+            });
         }
 
         private void listBoxSpreadsheets_SelectedIndexChanged(object sender, EventArgs e)

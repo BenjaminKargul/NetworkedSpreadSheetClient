@@ -115,7 +115,16 @@ namespace SS
 
             return drawingPanel.addHighlightedCell(cell, cellColor);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="col"></param>
+        public void removeHighlightedcell(int row, int col)
+        {
+            Address oldCell = new Address(col, row );
+            drawingPanel.removeHighlight(oldCell);
+        }
         /// <summary>
         /// Unhighlights all cells.
         /// </summary>
@@ -604,7 +613,13 @@ namespace SS
 
                 Invalidate();
             }
+            internal void removeHighlight(Address oldCell)
+            {
+                highlightedCells.Remove(oldCell);
+                Invalidate();
+            }   
         }
 
+        
     }
 }

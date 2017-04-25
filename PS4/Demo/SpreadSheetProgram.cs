@@ -44,6 +44,7 @@ namespace SS
         //Used to keep track of a new spreadsheet form being initially saved (clicking save brings
         //up the "save as" dialog instead
         bool isSaved;
+        
 
         /// <summary>
         /// Constructor for the Spreadsheet window.
@@ -74,8 +75,9 @@ namespace SS
             //Every time the selection on the panel changes, update the contents of the text boxes on top of GUI.
             spreadsheetPanel1.SelectionChanged += displaySelection;
             spreadsheetPanel1.SetSelection(0, 0); //Set initial selection to A1
-            finishedInit = true;
+            
             this.Text = fileName;
+            finishedInit = true;
         }
 
         public bool initCheck()
@@ -166,20 +168,39 @@ namespace SS
         /// </summary>
         private void updateFormTitle()
         {
-            this.Invoke((MethodInvoker)delegate ()
+            
+            if(finishedInit)
             {
-
-                /////////////////////////////////////
-                //likely going to be removed or changed to reflect server saving 
-                if (spreadsheetData.Changed)
+                if (this.InvokeRequired)
                 {
-                    this.Text = fileName + "*";
+                    this.Invoke((MethodInvoker)delegate ()
+                    {
+
+                    /////////////////////////////////////
+                    //likely going to be removed or changed to reflect server saving 
+                    if (spreadsheetData.Changed)
+                        {
+                            this.Text = fileName + "*";
+                        }
+                        else
+                        {
+                            this.Text = fileName;
+                        }
+                    });
                 }
                 else
                 {
-                    this.Text = fileName;
+                    if (spreadsheetData.Changed)
+                    {
+                        this.Text = fileName + "*";
+                    }
+                    else
+                    {
+                        this.Text = fileName;
+                    }
                 }
-            });
+            }
+            
         }
 
         /// <summary>
@@ -255,6 +276,11 @@ namespace SS
                 }
                 else
                 {
+                    int oldRow, oldCol;
+                    string oldCell = userCell[userId];
+                    cellNameStringToNum(oldCell, out oldRow, out oldCol);
+                    
+                    spreadsheetPanel1.removeHighlightedcell(oldRow, oldCol);
                     userCell[userId] = cell;
                     cellNameStringToNum(cell, out row, out col);
                     spreadsheetPanel1.highlightCell(col, row, userColors[userId]);
@@ -264,7 +290,7 @@ namespace SS
             {
                 userCell[userId] = cell;
                 Random randomGen = new Random();
-                Color newColor = Color.FromArgb(randomGen.Next(0, 255), randomGen.Next(0, 255), randomGen.Next(0, 255));
+                Color newColor = Color.FromArgb(randomGen.Next(150, 225), randomGen.Next(150, 225), randomGen.Next(150, 225));
                 userColors[userId] = newColor;
                 cellNameStringToNum(cell, out row, out col);
 
