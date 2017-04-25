@@ -65,6 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller.cs" />
+    <Compile Include="DisconnectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisconnectForm.Designer.cs">
+      <DependentUpon>DisconnectForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GraphForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     <Compile Include="SSOpenWindow.Designer.cs">
       <DependentUpon>SSOpenWindow.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DisconnectForm.resx">
+      <DependentUpon>DisconnectForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GraphForm.resx">
       <DependentUpon>GraphForm.cs</DependentUpon>
     </EmbeddedResource>

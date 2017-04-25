@@ -187,7 +187,8 @@ namespace SS
                 }
                 catch (Exception e)
                 {
-
+                    DisconnectForm error = new DisconnectForm();
+                    error.ShowDialog();
                 }
             }
 
