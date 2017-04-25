@@ -179,9 +179,16 @@ namespace SS
 
             public static void Send(Socket socket, string data)
             {
-                byte[] messageBytes = Encoding.UTF8.GetBytes(data);
+                try
+                {
+                    byte[] messageBytes = Encoding.UTF8.GetBytes(data);
 
-                socket.BeginSend(messageBytes, 0, messageBytes.Length, SocketFlags.None, SendCallback, socket);
+                    socket.BeginSend(messageBytes, 0, messageBytes.Length, SocketFlags.None, SendCallback, socket);
+                }
+                catch (Exception e)
+                {
+
+                }
             }
 
             private static void SendCallback(IAsyncResult ar)
