@@ -398,22 +398,22 @@ namespace SS
         /// Used to redraw the desired cells.
         /// </summary>
         /// <param name="cellsToUpdate">The cells to redraw</param>
-        //public void updateCellValues(string cellToUpdate, string contents)
-        //{
-        //    ///////////////////////////////////////////////////////////////////////////////////////////////////////
-        //    //needs to change to recieve info from the server to decided what needs to be updated
-        //    int row, col;
-        //    String value;
-        //    spreadsheetData.setChanged(true);
-            
-        //    //change the displayed cells to reflect updates
-        //    value = contents;
-        //    cellNameStringToNum(cellToUpdate, out row, out col);
-        //    spreadsheetPanel1.SetValue(col, row, value);
-        //}
+        public void updateCellValues(string cellToUpdate, string contents)
+        {
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////
+            //needs to change to recieve info from the server to decided what needs to be updated
+            int row, col;
+            String value;
+            spreadsheetData.setChanged(true);
+
+            //change the displayed cells to reflect updates
+            value = contents;
+            cellNameStringToNum(cellToUpdate, out row, out col);
+            spreadsheetPanel1.SetValue(col, row, value);
+        }
 
         public void recieveSSEdit(string cellToUpdate, string newContents)
-        {
+        {//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             spreadsheetData.setChanged(true);
             List<String> changedCells = spreadsheetData.SetContentsOfCell(cellToUpdate, newContents).ToList<String>();
             foreach (String cellName in changedCells)
@@ -422,7 +422,13 @@ namespace SS
                 String value = spreadsheetData.GetCellValue(cellName).ToString();
                 cellNameStringToNum(cellToUpdate, out row, out col);              
                 spreadsheetPanel1.SetValue(col, row, value);
+
             }
+            foreach(string cell in spreadsheetData.GetNamesOfAllNonemptyCells())
+            {
+                updateCellValues(cell, spreadsheetData.getCellValueAsString(cell));
+            }
+            
             updateFormTitle();
         }
 
