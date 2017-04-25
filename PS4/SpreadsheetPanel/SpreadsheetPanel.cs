@@ -89,6 +89,18 @@ namespace SS
             vScroll.Scroll += drawingPanel.HandleVScroll;
 
         }
+        /// <summary>
+        /// replaces old highlight function
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        public bool SearchCell(int col, int row)
+        {
+            Address cell = new Address(col, row);
+            return drawingPanel.addSearchCell(cell);
+
+        }
 
         /// <summary>
         /// highlight the desired cell
@@ -107,9 +119,9 @@ namespace SS
         /// <summary>
         /// Unhighlights all cells.
         /// </summary>
-        public void clearHighlightedCells()
+        public void clearSearchCells()
         {
-            drawingPanel.clearHighlightedCells();
+            drawingPanel.clearFoundCells();
         }
 
         /// <summary>
@@ -266,7 +278,7 @@ namespace SS
 
             // List of cells to highlight
             private Dictionary<Address, Color> highlightedCells = new Dictionary<Address, Color>();
-
+            private HashSet<Address> findCells = new HashSet<Address>();
             public DrawingPanel(SpreadsheetPanel ss)
             {
                 DoubleBuffered = true;
@@ -442,6 +454,22 @@ namespace SS
                                           DATA_ROW_HEIGHT - 2));
                     }
                 }
+                // Draw highlighted boxes
+                foreach (var addr in findCells)
+                {
+                    Brush highlighter = new SolidBrush(Color.FromArgb(200, Color.Yellow));
+
+                    //Check to see if the highlighted cell is visible
+                    if ((addr.Col - _firstColumn >= 0) && (addr.Row - _firstRow >= 0))
+                    {
+                        e.Graphics.FillRectangle(
+                            highlighter,
+                            new Rectangle(LABEL_COL_WIDTH + (addr.Col - _firstColumn) * DATA_COL_WIDTH + 1,
+                                          LABEL_ROW_HEIGHT + (addr.Row - _firstRow) * DATA_ROW_HEIGHT + 1,
+                                          DATA_COL_WIDTH - 2,
+                                          DATA_ROW_HEIGHT - 2));
+                    }
+                }
 
                 // Draw the text
                 foreach (KeyValuePair<Address, String> address in _values)
@@ -553,13 +581,26 @@ namespace SS
 
                 return true;
             }
+            internal bool addSearchCell(Address cell)
+            {
+                if (InvalidAddress(cell.Col, cell.Row))
+                {
+                    return false;
+                }
+
+                findCells.Add(cell);
+
+                Invalidate();
+
+                return true;
+            }
 
             /// <summary>
             /// No cells will be highlighted on the next paint operation
             /// </summary>
-            internal void clearHighlightedCells()
+            internal void clearFoundCells()
             {
-                highlightedCells.Clear();
+                findCells.Clear();
 
                 Invalidate();
             }

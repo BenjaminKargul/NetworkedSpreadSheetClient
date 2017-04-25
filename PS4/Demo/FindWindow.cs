@@ -51,7 +51,7 @@ namespace SS
         private void findButton_Click(object sender, EventArgs e)
         {
             //Clear previously highlighted cells.
-            sPanel.clearHighlightedCells();
+            sPanel.clearSearchCells();
 
             //If there is nothing to search for, just stop here
             if(searchBox.Text == "")
@@ -97,7 +97,7 @@ namespace SS
                 {
                     nameConverter(cell, out row, out col);
 
-                    sPanel.highlightCell(col, row);
+                    sPanel.SearchCell(col, row);
 
                     //Add one to the results
                     numResults++;
@@ -128,7 +128,7 @@ namespace SS
         /// <param name="e"></param>
         private void stopHighlighting(object sender, FormClosingEventArgs e)
         {
-            sPanel.clearHighlightedCells();
+            sPanel.clearSearchCells();
         }
     }
 }
